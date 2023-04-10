@@ -7,7 +7,4 @@
 
 import Foundation
 
-
-protocol StateProtocol{
-    
-}
+protocol StateProtocol {}

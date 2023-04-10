@@ -1,5 +1,5 @@
 //
-//  InteractProtocol.swift
+//  ProjectileStateEnum.swift
 //  OperationSnowBomb
 //
 //  Created by João Victor Ipirajá de Alencar on 10/04/23.
@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol InteractProtocol {
-    var state: StateProtocol { get set }
+enum ProjectileStateEnum {
+    case rawMaterial
+    case refinedMaterial
 }
