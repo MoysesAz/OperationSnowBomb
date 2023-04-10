@@ -17,6 +17,7 @@
 		4ED1B93E29E44814005C1511 /* ActorTexturesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B93D29E44814005C1511 /* ActorTexturesProtocol.swift */; };
 		4ED1B94129E449E0005C1511 /* ActorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B94029E449E0005C1511 /* ActorProtocol.swift */; };
 		4ED1B94329E44C81005C1511 /* ActuatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */; };
+		4ED1B94529E44F97005C1511 /* AccesoriesStateEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B94429E44F97005C1511 /* AccesoriesStateEnum.swift */; };
 		95FD15F829D6FE830025DFA8 /* OperationSnowBombApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FD15F729D6FE830025DFA8 /* OperationSnowBombApp.swift */; };
 		95FD15FA29D6FE830025DFA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FD15F929D6FE830025DFA8 /* ContentView.swift */; };
 		95FD15FC29D6FE840025DFA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FD15FB29D6FE840025DFA8 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		4ED1B93D29E44814005C1511 /* ActorTexturesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorTexturesProtocol.swift; sourceTree = "<group>"; };
 		4ED1B94029E449E0005C1511 /* ActorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProtocol.swift; sourceTree = "<group>"; };
 		4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActuatorProtocol.swift; sourceTree = "<group>"; };
+		4ED1B94429E44F97005C1511 /* AccesoriesStateEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccesoriesStateEnum.swift; sourceTree = "<group>"; };
 		95FD15F429D6FE830025DFA8 /* OperationSnowBomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OperationSnowBomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95FD15F729D6FE830025DFA8 /* OperationSnowBombApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationSnowBombApp.swift; sourceTree = "<group>"; };
 		95FD15F929D6FE830025DFA8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				4ED1B93229E434EE005C1511 /* ActorStateEnum.swift */,
 				4ED1B93329E434EE005C1511 /* ActuatorStateEnum.swift */,
 				4ED1B93429E434EE005C1511 /* ProjectileStateEnum.swift */,
+				4ED1B94429E44F97005C1511 /* AccesoriesStateEnum.swift */,
 			);
 			path = Enums;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				4ED1B93529E434EE005C1511 /* ActorStateEnum.swift in Sources */,
 				4ED1B93629E434EE005C1511 /* ActuatorStateEnum.swift in Sources */,
 				4ED1B93729E434EE005C1511 /* ProjectileStateEnum.swift in Sources */,
+				4ED1B94529E44F97005C1511 /* AccesoriesStateEnum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
