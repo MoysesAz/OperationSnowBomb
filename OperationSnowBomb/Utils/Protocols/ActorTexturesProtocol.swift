@@ -8,7 +8,7 @@
 import SpriteKit
 
 protocol ActorTexturesProtocol {
-    var waitingTexture: [SKTextureAtlas] { get set }
-    var holdingRawTexture: [SKTextureAtlas] { get set }
-    var holdingRefinedTexture: [SKTextureAtlas] { get set }
+    var waitingTexture: [SKTexture] { get set }
+    var holdingRawTexture: [SKTexture] { get set }
+    var holdingRefinedTexture: [SKTexture] { get set }
 }
