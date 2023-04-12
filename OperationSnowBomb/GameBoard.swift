@@ -10,26 +10,9 @@ import SpriteKit
 class GameBoard: SKScene {
     var player: ActorProtocol?
 
-    private func setupGodolfredo() {
-        let waitingTextureAtlas = SKTextureAtlas(named:"GoldofredoWaiting")
-        let holdingRawTextureAtlas = SKTextureAtlas(named: "GoldofredoHoldingRaw")
-        let holdingRefinedTextureAtlas = SKTextureAtlas(named: "GoldofredohHoldingRefined")
-
-        let godofredo = Actor(
-            waitingTexture: waitingTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)),
-            holdingRawTexture: holdingRawTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)),
-            holdingRefinedTexture: holdingRefinedTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)))
-
-        godofredo.size = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-        godofredo.position = .init(x: frame.width * 0.5, y: frame.height * 0.5)
-        godofredo.name = "Player"
-        self.player = godofredo
-        self.addChild(godofredo)
-    }
-
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        setupGodolfredo()
+        setup()
         backgroundColor = .red
     }
 
@@ -60,5 +43,45 @@ extension GameBoard {
         }
 
         player.xScale = abs(player.xScale) * player.multiplierForDirection
+    }
+}
+
+extension GameBoard {
+    private func setupSnowBox() {
+        let snowBox = SKSpriteNode(imageNamed: "SnowBox")
+        snowBox.size = .init(width: frame.width * 0.10, height: frame.width * 0.10)
+        snowBox.position = .init(x: frame.width * 0.90, y: frame.height * 0.10)
+        addChild(snowBox)
+    }
+
+    private func setupGodolfredo() {
+        let waitingTextureAtlas = SKTextureAtlas(named:"GoldofredoWaiting")
+        let holdingRawTextureAtlas = SKTextureAtlas(named: "GoldofredoHoldingRaw")
+        let holdingRefinedTextureAtlas = SKTextureAtlas(named: "GoldofredohHoldingRefined")
+
+        let godofredo = Actor(
+            waitingTexture: waitingTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)),
+            holdingRawTexture: holdingRawTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)),
+            holdingRefinedTexture: holdingRefinedTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)))
+
+        godofredo.size = .init(width: frame.width * 0.15, height: frame.width * 0.15)
+        godofredo.position = .init(x: frame.width * 0.5, y: frame.height * 0.5)
+        godofredo.name = "Player"
+        self.player = godofredo
+        addChild(godofredo)
+
+    }
+
+    private func setupSnow() {
+        let iglooWall = SKSpriteNode(imageNamed: "IglooWall")
+        iglooWall.size = .init(width: frame.width * 1.05, height: frame.width * 0.20)
+        iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.45)
+        addChild(iglooWall)
+    }
+
+    private func setup() {
+        setupSnow()
+        setupSnowBox()
+        setupGodolfredo()
     }
 }
