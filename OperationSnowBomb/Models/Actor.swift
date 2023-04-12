@@ -7,8 +7,7 @@
 
 import SpriteKit
 
-class Actor: SKSpriteNode, ActorProtocol, InteractProtocol {
-
+class Actor: SKSpriteNode, ActorProtocol {
     var waitingTexture: [SKTexture]
     var holdingRawTexture: [SKTexture]
     var holdingRefinedTexture: [SKTexture]
