@@ -6,5 +6,10 @@
 //
 
 import Foundation
+import SpriteKit
 
-protocol ActorProtocol: ActorMoveProtocol, ActorFeaturesProtocol, ActorTexturesProtocol {}
+protocol ActorProtocol: ActorMoveProtocol,
+                        ActorFeaturesProtocol,
+                        ActorTexturesProtocol,
+                        InteractProtocol,
+                        SKSpriteNode {}

@@ -22,6 +22,8 @@
 		95FD15FA29D6FE830025DFA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FD15F929D6FE830025DFA8 /* ContentView.swift */; };
 		95FD15FC29D6FE840025DFA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FD15FB29D6FE840025DFA8 /* Assets.xcassets */; };
 		95FD15FF29D6FE840025DFA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FD15FE29D6FE840025DFA8 /* Preview Assets.xcassets */; };
+		DD43967129E581A900E1DF19 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967029E581A900E1DF19 /* GameBoard.swift */; };
+		DD43967429E5855700E1DF19 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967329E5855700E1DF19 /* Actor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +56,8 @@
 		95FD15F929D6FE830025DFA8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		95FD15FB29D6FE840025DFA8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95FD15FE29D6FE840025DFA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		DD43967029E581A900E1DF19 /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
+		DD43967329E5855700E1DF19 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,9 +124,11 @@
 		95FD15F629D6FE830025DFA8 /* OperationSnowBomb */ = {
 			isa = PBXGroup;
 			children = (
+				DD43967229E584F500E1DF19 /* Models */,
 				4ED1B91F29E42ABD005C1511 /* Utils */,
 				95FD15F729D6FE830025DFA8 /* OperationSnowBombApp.swift */,
 				95FD15F929D6FE830025DFA8 /* ContentView.swift */,
+				DD43967029E581A900E1DF19 /* GameBoard.swift */,
 				95FD15FB29D6FE840025DFA8 /* Assets.xcassets */,
 				95FD15FD29D6FE840025DFA8 /* Preview Content */,
 			);
@@ -135,6 +141,14 @@
 				95FD15FE29D6FE840025DFA8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		DD43967229E584F500E1DF19 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DD43967329E5855700E1DF19 /* Actor.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,7 +257,9 @@
 				4ED1B92429E42BD7005C1511 /* InteractProtocol.swift in Sources */,
 				4ED1B92229E42B86005C1511 /* StateProtocol.swift in Sources */,
 				95FD15F829D6FE830025DFA8 /* OperationSnowBombApp.swift in Sources */,
+				DD43967429E5855700E1DF19 /* Actor.swift in Sources */,
 				4ED1B93529E434EE005C1511 /* ActorStateEnum.swift in Sources */,
+				DD43967129E581A900E1DF19 /* GameBoard.swift in Sources */,
 				4ED1B93629E434EE005C1511 /* ActuatorStateEnum.swift in Sources */,
 				4ED1B93729E434EE005C1511 /* ProjectileStateEnum.swift in Sources */,
 				4ED1B94529E44F97005C1511 /* AccesoriesStateEnum.swift in Sources */,
