@@ -38,7 +38,6 @@ class GameBoard: SKScene {
         let touch = touches.first!
         let location = touch.location(in: self)
         indentifyPlayerDirections(location: location)
-
     }
 }
 
@@ -52,9 +51,14 @@ extension GameBoard {
 
         if player.moveDifference.x < 0 {
             player.multiplierForDirection = -1.0
+            player.animationActor()
+            player.moveToLeft(location: location)
         } else {
             player.multiplierForDirection = 1.0
+            player.animationActor()
+            player.moveToRight(location: location)
         }
+
         player.xScale = abs(player.xScale) * player.multiplierForDirection
     }
 }

@@ -11,4 +11,5 @@ protocol ActorTexturesProtocol {
     var waitingTexture: [SKTexture] { get set }
     var holdingRawTexture: [SKTexture] { get set }
     var holdingRefinedTexture: [SKTexture] { get set }
+    func animationActor()
 }

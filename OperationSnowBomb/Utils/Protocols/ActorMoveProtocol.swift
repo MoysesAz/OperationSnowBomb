@@ -10,8 +10,8 @@ import Foundation
 protocol ActorMoveProtocol {
     var multiplierForDirection: CGFloat { get set }
     var moveDifference: CGPoint { get set }
-    func moveToRight()
-    func moveToLeft()
+    func moveToRight(location: CGPoint)
+    func moveToLeft(location: CGPoint)
     func moveToUp()
     func moveToDown()
 }
