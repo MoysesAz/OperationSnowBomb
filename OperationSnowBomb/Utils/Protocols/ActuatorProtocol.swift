@@ -8,7 +8,7 @@
 import Foundation
 
 protocol ActuatorProtocol {
-
+    
     func turnOn()
     func turnOff()
 }

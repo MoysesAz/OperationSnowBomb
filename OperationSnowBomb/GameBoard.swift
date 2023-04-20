@@ -54,31 +54,20 @@ extension GameBoard {
         addChild(snowBox)
     }
 
-    private func setupCannon() {
-        // cannons
-        let cannon = SKSpriteNode(imageNamed: "Cannon")
-        let cannon2 = SKSpriteNode(imageNamed: "Cannon")
-        let cannon3 = SKSpriteNode(imageNamed: "Cannon")
-        let cannon4 = SKSpriteNode(imageNamed: "Cannon")
-
+    private func setupCannon(withIterator number: Int) {
         let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-        // sizes
-        cannon.size = sizeCannons
-        cannon2.size = sizeCannons
-        cannon3.size = sizeCannons
-        cannon4.size = sizeCannons
 
-        // positions
-        cannon.position = .init(x: frame.width * 0.188, y: frame.height * 0.42)
-        cannon2.position = .init(x: frame.width * 0.395, y: frame.height * 0.42)
-        cannon3.position = .init(x: frame.width * 0.602, y: frame.height * 0.42)
-        cannon4.position = .init(x: frame.width * 0.809, y: frame.height * 0.42)
-
-        // childs
-        addChild(cannon)
-        addChild(cannon2)
-        addChild(cannon3)
-        addChild(cannon4)
+        for iterator in 0...number-1 {
+            let positionXMulti = 0.188 + 0.207 * Double(iterator)
+            let cannon = Actuator(withName: "Cannon\(iterator + 1)",
+                                  waitingTexture: SKTextureAtlas(named:"CannonWaiting"),
+                                  disabledTexture: SKTextureAtlas(named:"CannonDisabled"),
+                                  enabledTexture: SKTextureAtlas(named:"CannonEnabled"),
+                                  position: .init(x: frame.width * positionXMulti ,
+                                                  y: frame.height * 0.42),
+                                                  size: sizeCannons)
+            addChild(cannon)
+        }
     }
 
     private func setupGodolfredo() {
@@ -110,6 +99,6 @@ extension GameBoard {
         setupSnow()
         setupSnowBox()
         setupGodolfredo()
-        setupCannon()
+        setupCannon(withIterator: 4)
     }
 }
