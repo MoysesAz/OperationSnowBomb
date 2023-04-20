@@ -54,6 +54,22 @@ extension GameBoard {
         addChild(snowBox)
     }
 
+    private func setupCannon(withIterator number: Int) {
+        let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
+
+        for iterator in 0...number-1 {
+            let positionXMulti = 0.188 + 0.207 * Double(iterator)
+            let cannon = Actuator(withName: "Cannon\(iterator + 1)",
+                                  waitingTexture: SKTextureAtlas(named:"CannonWaiting"),
+                                  disabledTexture: SKTextureAtlas(named:"CannonDisabled"),
+                                  enabledTexture: SKTextureAtlas(named:"CannonEnabled"),
+                                  position: .init(x: frame.width * positionXMulti ,
+                                                  y: frame.height * 0.42),
+                                                  size: sizeCannons)
+            addChild(cannon)
+        }
+    }
+
     private func setupGodolfredo() {
         let waitingTextureAtlas = SKTextureAtlas(named:"GoldofredoWaiting")
         let holdingRawTextureAtlas = SKTextureAtlas(named: "GoldofredoHoldingRaw")
@@ -65,7 +81,7 @@ extension GameBoard {
             holdingRefinedTexture: holdingRefinedTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)))
 
         godofredo.size = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-        godofredo.position = .init(x: frame.width * 0.5, y: frame.height * 0.5)
+        godofredo.position = .init(x: frame.width * 0.5, y: frame.height * 0.15)
         godofredo.name = "Player"
         self.player = godofredo
         addChild(godofredo)
@@ -75,7 +91,7 @@ extension GameBoard {
     private func setupSnow() {
         let iglooWall = SKSpriteNode(imageNamed: "IglooWall")
         iglooWall.size = .init(width: frame.width * 1.05, height: frame.width * 0.20)
-        iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.45)
+        iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.39)
         addChild(iglooWall)
     }
 
@@ -83,5 +99,6 @@ extension GameBoard {
         setupSnow()
         setupSnowBox()
         setupGodolfredo()
+        setupCannon(withIterator: 4)
     }
 }

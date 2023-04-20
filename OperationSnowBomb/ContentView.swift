@@ -19,6 +19,7 @@ struct ContentView: View {
             SpriteView(scene: scene)
                 .frame(width: frame.size.width, height: frame.size.height, alignment: .center)
         }
+        .ignoresSafeArea()
     }
 }
 
