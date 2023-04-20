@@ -24,6 +24,8 @@
 		95FD15FF29D6FE840025DFA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FD15FE29D6FE840025DFA8 /* Preview Assets.xcassets */; };
 		DD43967129E581A900E1DF19 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967029E581A900E1DF19 /* GameBoard.swift */; };
 		DD43967429E5855700E1DF19 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967329E5855700E1DF19 /* Actor.swift */; };
+		DD43967629E6EF4900E1DF19 /* AccesoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */; };
+		DD43967829E6F0C400E1DF19 /* Acessories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967729E6F0C400E1DF19 /* Acessories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,6 +60,8 @@
 		95FD15FE29D6FE840025DFA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DD43967029E581A900E1DF19 /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		DD43967329E5855700E1DF19 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
+		DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccesoriesProtocol.swift; sourceTree = "<group>"; };
+		DD43967729E6F0C400E1DF19 /* Acessories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Acessories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 				4ED1B93D29E44814005C1511 /* ActorTexturesProtocol.swift */,
 				4ED1B94029E449E0005C1511 /* ActorProtocol.swift */,
 				4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */,
+				DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				DD43967329E5855700E1DF19 /* Actor.swift */,
+				DD43967729E6F0C400E1DF19 /* Acessories.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -248,12 +254,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD43967829E6F0C400E1DF19 /* Acessories.swift in Sources */,
 				4ED1B94129E449E0005C1511 /* ActorProtocol.swift in Sources */,
 				4ED1B93E29E44814005C1511 /* ActorTexturesProtocol.swift in Sources */,
 				4ED1B94329E44C81005C1511 /* ActuatorProtocol.swift in Sources */,
 				4ED1B93C29E4463E005C1511 /* ActorFeaturesProtocol.swift in Sources */,
 				95FD15FA29D6FE830025DFA8 /* ContentView.swift in Sources */,
 				4ED1B93A29E4373B005C1511 /* ActorMoveProtocol.swift in Sources */,
+				DD43967629E6EF4900E1DF19 /* AccesoriesProtocol.swift in Sources */,
 				4ED1B92429E42BD7005C1511 /* InteractProtocol.swift in Sources */,
 				4ED1B92229E42B86005C1511 /* StateProtocol.swift in Sources */,
 				95FD15F829D6FE830025DFA8 /* OperationSnowBombApp.swift in Sources */,
