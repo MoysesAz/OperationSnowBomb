@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ActuatorStateEnum {
+enum ActuatorStateEnum: StateProtocol {
     case enabled
     case disabled
 }

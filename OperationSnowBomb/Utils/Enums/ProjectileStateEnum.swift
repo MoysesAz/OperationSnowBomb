@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ProjectileStateEnum {
+enum ProjectileStateEnum: StateProtocol {
     case rawMaterial
     case refinedMaterial
 }
