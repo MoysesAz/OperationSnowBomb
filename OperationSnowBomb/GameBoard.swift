@@ -50,7 +50,7 @@ extension GameBoard {
     private func setupSnowBox() {
         let snowBox = SKSpriteNode(imageNamed: "SnowBox")
         snowBox.size = .init(width: frame.width * 0.10, height: frame.width * 0.10)
-        snowBox.position = .init(x: frame.width * 0.90, y: frame.height * 0.10)
+        snowBox.position = .init(x: frame.width * 0.90, y: frame.height * 0.129)
         addChild(snowBox)
     }
 
@@ -95,8 +95,16 @@ extension GameBoard {
         addChild(iglooWall)
     }
 
+    private func setupSnowMachine() {
+        let snowMachine = SKSpriteNode(imageNamed: "SnowMachine")
+        snowMachine.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)
+        snowMachine.position = .init(x: frame.width * 0.18, y: frame.height * 0.129)
+        addChild(snowMachine)
+    }
+
     private func setup() {
         setupSnow()
+        setupSnowMachine()
         setupSnowBox()
         setupGodolfredo()
         setupCannon(withIterator: 4)
