@@ -8,8 +8,7 @@
 import Foundation
 import SpriteKit
 
-class Actuator: SKSpriteNode, ActuatorProtocol{
-
+class Actuator: SKSpriteNode, ActuatorProtocol {
 
     private var state: StateProtocol
     var waitingTexture: [SKTexture]
@@ -20,13 +19,12 @@ class Actuator: SKSpriteNode, ActuatorProtocol{
         fatalError("init(coder:) has not been implemented")
     }
 
-
-    init(withName name: String, state: StateProtocol = ActuatorStateEnum.disabled, waitingTexture: SKTextureAtlas,
+    init(withName name: String,
+         state: StateProtocol = ActuatorStateEnum.disabled,
+         waitingTexture: SKTextureAtlas,
          disabledTexture: SKTextureAtlas, enabledTexture: SKTextureAtlas ,position: CGPoint, size: CGSize) {
 
-
         self.state = state
-
         self.waitingTexture = waitingTexture.textureNames.map(SKTexture.init(imageNamed:))
         self.disabledTexture = disabledTexture.textureNames.map(SKTexture.init(imageNamed:))
         self.enabledTexture = enabledTexture.textureNames.map(SKTexture.init(imageNamed:))
@@ -40,7 +38,6 @@ class Actuator: SKSpriteNode, ActuatorProtocol{
 
     }
 
-
     func turnOn() {
 
     }
@@ -48,6 +45,4 @@ class Actuator: SKSpriteNode, ActuatorProtocol{
     func turnOff() {
 
     }
-
-    
 }
