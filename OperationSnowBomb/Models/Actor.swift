@@ -40,28 +40,21 @@ class Actor: SKSpriteNode, ActorProtocol {
     }
 
     func moveToRight(location: CGPoint) {
-        print("Right")
-
-        print(position)
         let moveAction = SKAction.move(to: location, duration: 1)
         let doneAction = SKAction.run({ [weak self] in
             self?.moveEnd()
         })
         let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
         self.run(moveActionWithDone)
-        print(position)
     }
 
     func moveToLeft(location: CGPoint) {
-        print("Left")
-        print(position)
         let moveAction = SKAction.move(to: location, duration: 1)
         let doneAction = SKAction.run({ [weak self] in
             self?.moveEnd()
         })
         let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
         self.run(moveActionWithDone)
-        print(position)
     }
 
     func moveToUp() {

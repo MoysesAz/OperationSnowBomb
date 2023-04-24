@@ -28,7 +28,6 @@ class Actuator: SKSpriteNode, ActuatorProtocol {
         self.waitingTexture = waitingTexture.textureNames.map(SKTexture.init(imageNamed:))
         self.disabledTexture = disabledTexture.textureNames.map(SKTexture.init(imageNamed:))
         self.enabledTexture = enabledTexture.textureNames.map(SKTexture.init(imageNamed:))
-        print(waitingTexture)
         super.init(texture: self.disabledTexture[0],
                    color: .clear,
                    size: size)
