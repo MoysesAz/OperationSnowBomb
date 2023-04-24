@@ -9,8 +9,10 @@ import SwiftUI
 import SpriteKit
 
 struct ContentView: View {
+    var factory = Factory()
+
     var scene: SKScene {
-        let scene = GameBoard()
+        let scene = GameBoard(player: factory.godofredo(), snowBox: factory.snowBox())
         scene.scaleMode = .resizeFill
         return scene
     }

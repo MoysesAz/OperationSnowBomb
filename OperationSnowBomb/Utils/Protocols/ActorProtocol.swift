@@ -11,5 +11,5 @@ import SpriteKit
 protocol ActorProtocol: ActorMoveProtocol,
                         ActorFeaturesProtocol,
                         ActorTexturesProtocol,
-                        InteractProtocol,
-                        SKSpriteNode {}
+                        InteractProtocol
+                        {}
