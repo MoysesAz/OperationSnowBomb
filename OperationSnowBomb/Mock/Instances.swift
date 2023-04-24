@@ -29,4 +29,7 @@ class Factory {
         let snowBox = Accessories(node: node, state: AccesoriesStateEnum.idle)
         return snowBox
     }
+
+    
+
 }

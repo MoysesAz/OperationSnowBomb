@@ -91,14 +91,9 @@
 		4ED1B92029E42B32005C1511 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				957A77ED29F72AE700487104 /* Interactores */,
+				957A77EC29F72A2500487104 /* Actor */,
 				4ED1B92129E42B86005C1511 /* StateProtocol.swift */,
-				4ED1B92329E42BD7005C1511 /* InteractProtocol.swift */,
-				4ED1B93929E4373B005C1511 /* ActorMoveProtocol.swift */,
-				4ED1B93B29E4463E005C1511 /* ActorFeaturesProtocol.swift */,
-				4ED1B93D29E44814005C1511 /* ActorTexturesProtocol.swift */,
-				4ED1B94029E449E0005C1511 /* ActorProtocol.swift */,
-				4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */,
-				DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -112,6 +107,27 @@
 				4ED1B94429E44F97005C1511 /* AccesoriesStateEnum.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		957A77EC29F72A2500487104 /* Actor */ = {
+			isa = PBXGroup;
+			children = (
+				4ED1B93929E4373B005C1511 /* ActorMoveProtocol.swift */,
+				4ED1B93B29E4463E005C1511 /* ActorFeaturesProtocol.swift */,
+				4ED1B93D29E44814005C1511 /* ActorTexturesProtocol.swift */,
+			);
+			path = Actor;
+			sourceTree = "<group>";
+		};
+		957A77ED29F72AE700487104 /* Interactores */ = {
+			isa = PBXGroup;
+			children = (
+				4ED1B94029E449E0005C1511 /* ActorProtocol.swift */,
+				4ED1B92329E42BD7005C1511 /* InteractProtocol.swift */,
+				DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */,
+				4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */,
+			);
+			path = Interactores;
 			sourceTree = "<group>";
 		};
 		95F0278D29F7067F00A83497 /* Mock */ = {

@@ -9,10 +9,11 @@ import SpriteKit
 
 class Actor: ActorProtocol {
     var node: SKSpriteNode
+    var state: StateProtocol
+
     var waitingTexture: [SKTexture]
     var holdingRawTexture: [SKTexture]
     var holdingRefinedTexture: [SKTexture]
-    var state: StateProtocol
 
     // Mudar
     var multiplierForDirection: CGFloat = 0
@@ -25,11 +26,12 @@ class Actor: ActorProtocol {
          holdingRawTexture: [SKTexture] = [],
          holdingRefinedTexture: [SKTexture] = [],
          node: SKSpriteNode = SKSpriteNode()) {
+
+        self.node = node
         self.state = state
         self.waitingTexture = waitingTexture
         self.holdingRawTexture = holdingRawTexture
         self.holdingRefinedTexture = holdingRefinedTexture
-        self.node = node
     }
 
     public func animationActor() {

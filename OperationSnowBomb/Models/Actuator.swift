@@ -8,9 +8,10 @@
 import Foundation
 import SpriteKit
 
-class Actuator: SKSpriteNode, ActuatorProtocol {
+class Actuator: ActuatorProtocol {
+    var node: SKSpriteNode
+    var state: StateProtocol
 
-    private var state: StateProtocol
     var waitingTexture: [SKTexture]
     var disabledTexture: [SKTexture]
     var enabledTexture: [SKTexture]
@@ -19,21 +20,17 @@ class Actuator: SKSpriteNode, ActuatorProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(withName name: String,
+    init(node: SKSpriteNode = SKSpriteNode(),
          state: StateProtocol = ActuatorStateEnum.disabled,
-         waitingTexture: SKTextureAtlas,
-         disabledTexture: SKTextureAtlas, enabledTexture: SKTextureAtlas ,position: CGPoint, size: CGSize) {
+         waitingTexture: [SKTexture] = [],
+         disabledTexture: [SKTexture] = [],
+         enabledTexture: [SKTexture] = []) {
 
+        self.node = node
         self.state = state
-        self.waitingTexture = waitingTexture.textureNames.map(SKTexture.init(imageNamed:))
-        self.disabledTexture = disabledTexture.textureNames.map(SKTexture.init(imageNamed:))
-        self.enabledTexture = enabledTexture.textureNames.map(SKTexture.init(imageNamed:))
-        super.init(texture: self.disabledTexture[0],
-                   color: .clear,
-                   size: size)
-
-        self.name = name
-        self.position = position
+        self.waitingTexture = waitingTexture
+        self.disabledTexture = disabledTexture
+        self.enabledTexture = enabledTexture
 
     }
 
