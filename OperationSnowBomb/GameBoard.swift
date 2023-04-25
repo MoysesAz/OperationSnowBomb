@@ -37,23 +37,20 @@ class GameBoard: SKScene {
 
 extension GameBoard {
     private func indentifyPlayerDirections(location: CGPoint) {
-//        guard var player = player else {
-//            return print()
-//        }
-//        self.player?.moveDifference = CGPoint(x: location.x - player.position.x,
-//                                              y: location.y - player.position.y)
-//
-//        if player.moveDifference.x < 0 {
-//            player.multiplierForDirection = -1.0
-//            player.animationActor()
-//            player.moveToLeft(location: location)
-//        } else {
-//            player.multiplierForDirection = 1.0
-//            player.animationActor()
-//            player.moveToRight(location: location)
-//        }
-//
-//        player.xScale = abs(player.xScale) * player.multiplierForDirection
+        self.player.moveDifference = CGPoint(x: location.x - player.node.position.x,
+                                                  y: location.y - player.node.position.y)
+
+        if player.moveDifference.x < 0 {
+            player.multiplierForDirection = -1.0
+            player.animationActor()
+            player.moveToLeft(location: location)
+        } else {
+            player.multiplierForDirection = 1.0
+            player.animationActor()
+            player.moveToRight(location: location)
+        }
+
+        player.node.xScale = abs(player.node.xScale) * player.multiplierForDirection
     }
 }
 
@@ -129,6 +126,9 @@ extension GameBoard: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         print("A:", contact.bodyA.node?.name ?? "no node")
         print("B:", contact.bodyB.node?.name ?? "no node")
+
+        self.player.state = ActorStateEnum.holding(projectile: .refinedMaterial)
+        self.player.animationActor()
 
 //        self.player?.state = ActorStateEnum.holding(projectile: .rawMaterial)
 //        self.player?.animationActor()

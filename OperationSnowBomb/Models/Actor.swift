@@ -21,11 +21,11 @@ class Actor: ActorProtocol {
     var actorSpeed: CGFloat = 0
     var distanceToMove: CGFloat = 0
 
-    init(state: StateProtocol = ActorStateEnum.waiting,
+    init(node: SKSpriteNode = SKSpriteNode(),
+         state: StateProtocol = ActorStateEnum.waiting,
          waitingTexture: [SKTexture] = [],
          holdingRawTexture: [SKTexture] = [],
-         holdingRefinedTexture: [SKTexture] = [],
-         node: SKSpriteNode = SKSpriteNode()) {
+         holdingRefinedTexture: [SKTexture] = []) {
 
         self.node = node
         self.state = state

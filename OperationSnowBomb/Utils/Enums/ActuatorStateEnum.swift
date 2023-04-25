@@ -10,5 +10,4 @@ import Foundation
 enum ActuatorStateEnum: StateProtocol {
     case enabled
     case disabled
-    case waiting
 }
