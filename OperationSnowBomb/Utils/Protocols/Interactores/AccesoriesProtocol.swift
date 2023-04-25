@@ -8,5 +8,4 @@
 import SpriteKit
 
 protocol AcessoriesProtocol: InteractProtocol {
-    var node: SKSpriteNode { get set }
 }

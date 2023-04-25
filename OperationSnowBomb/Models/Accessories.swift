@@ -7,11 +7,11 @@
 
 import SpriteKit
 
-class Acessories: AcessoriesProtocol {
+class Accessories: AcessoriesProtocol {
     var node: SKSpriteNode
     var state: StateProtocol
 
-    init(node: SKSpriteNode, state: StateProtocol) {
+    init(node: SKSpriteNode = SKSpriteNode(), state: StateProtocol) {
         self.node = node
         self.state = state
     }

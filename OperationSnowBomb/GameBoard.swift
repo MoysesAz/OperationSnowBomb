@@ -8,12 +8,25 @@
 import SpriteKit
 
 class GameBoard: SKScene {
-    var player: ActorProtocol?
+    var player: Actor
+    var snowBox: Accessories
+    var snowMachine: Actuator
+
+    internal init(player: Actor, snowBox: Accessories, snowMachine: Actuator) {
+        self.player = player
+        self.snowBox = snowBox
+        self.snowMachine = snowMachine
+        super.init(size: .init(width: 0, height: 0))
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        backgroundColor = .systemBlue
         setup()
-        backgroundColor = .red
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -26,11 +39,8 @@ class GameBoard: SKScene {
 
 extension GameBoard {
     private func indentifyPlayerDirections(location: CGPoint) {
-        guard var player = player else {
-            return print()
-        }
-        self.player?.moveDifference = CGPoint(x: location.x - player.position.x,
-                                              y: location.y - player.position.y)
+        self.player.moveDifference = CGPoint(x: location.x - player.node.position.x,
+                                                  y: location.y - player.node.position.y)
 
         if player.moveDifference.x < 0 {
             player.multiplierForDirection = -1.0
@@ -42,71 +52,134 @@ extension GameBoard {
             player.moveToRight(location: location)
         }
 
-        player.xScale = abs(player.xScale) * player.multiplierForDirection
+        player.node.xScale = abs(player.node.xScale) * player.multiplierForDirection
     }
 }
 
+
 extension GameBoard {
     private func setupSnowBox() {
-        let snowBox = SKSpriteNode(imageNamed: "SnowBox")
-        snowBox.size = .init(width: frame.width * 0.10, height: frame.width * 0.10)
-        snowBox.position = .init(x: frame.width * 0.90, y: frame.height * 0.129)
-        addChild(snowBox)
+        snowBox.node.size = .init(width: frame.width * 0.10, height: frame.width * 0.10)
+        snowBox.node.position = .init(x: frame.width * 0.90, y: frame.height * 0.129)
+        snowBox.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.10,
+                                                               height: frame.width * 0.10))
+        snowBox.node.physicsBody?.isDynamic = false
+        snowBox.node.physicsBody?.affectedByGravity = false
+        addChild(self.snowBox.node)
     }
 
     private func setupCannon(withIterator number: Int) {
-        let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-
-        for iterator in 0...number-1 {
-            let positionXMulti = 0.188 + 0.207 * Double(iterator)
-            let cannon = Actuator(withName: "Cannon\(iterator + 1)",
-                                  waitingTexture: SKTextureAtlas(named:"CannonWaiting"),
-                                  disabledTexture: SKTextureAtlas(named:"CannonDisabled"),
-                                  enabledTexture: SKTextureAtlas(named:"CannonEnabled"),
-                                  position: .init(x: frame.width * positionXMulti ,
-                                                  y: frame.height * 0.42),
-                                                  size: sizeCannons)
-            addChild(cannon)
-        }
+//        let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
+//
+//        for iterator in 0...number-1 {
+//            let positionXMulti = 0.188 + 0.207 * Double(iterator)
+//            let cannon = Actuator(withName: "Cannon\(iterator + 1)",
+//                                  waitingTexture: SKTextureAtlas(named:"CannonWaiting"),
+//                                  disabledTexture: SKTextureAtlas(named:"CannonDisabled"),
+//                                  enabledTexture: SKTextureAtlas(named:"CannonEnabled"),
+//                                  position: .init(x: frame.width * positionXMulti ,
+//                                                  y: frame.height * 0.42),
+//                                                  size: sizeCannons)
+//            addChild(cannon)
+//        }
     }
 
     private func setupGodolfredo() {
-        let waitingTextureAtlas = SKTextureAtlas(named:"GoldofredoWaiting")
-        let holdingRawTextureAtlas = SKTextureAtlas(named: "GoldofredoHoldingRaw")
-        let holdingRefinedTextureAtlas = SKTextureAtlas(named: "GoldofredohHoldingRefined")
-
-        let godofredo = Actor(
-            waitingTexture: waitingTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)),
-            holdingRawTexture: holdingRawTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)),
-            holdingRefinedTexture: holdingRefinedTextureAtlas.textureNames.map(SKTexture.init(imageNamed:)))
-
-        godofredo.size = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-        godofredo.position = .init(x: frame.width * 0.5, y: frame.height * 0.15)
-        godofredo.name = "Player"
-        self.player = godofredo
-        addChild(godofredo)
-
+        self.player.node.size = .init(width: frame.width * 0.15, height: frame.width * 0.15)
+        self.player.node.position = .init(x: frame.width * 0.5, y: frame.height * 0.15)
+        self.player.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.15,
+                                                                 height: frame.width * 0.15))
+        self.player.node.physicsBody?.affectedByGravity = false
+        self.player.node.physicsBody?.isDynamic = true
+        self.player.node.physicsBody?.allowsRotation = false
+        self.player.node.physicsBody?.categoryBitMask = 0b0001
+        self.player.node.physicsBody?.contactTestBitMask = 0b0010
+        addChild(self.player.node)
     }
 
     private func setupSnow() {
-        let iglooWall = SKSpriteNode(imageNamed: "IglooWall")
-        iglooWall.size = .init(width: frame.width * 1.05, height: frame.width * 0.20)
-        iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.39)
-        addChild(iglooWall)
-    }
+            let iglooWall = SKSpriteNode(imageNamed: "IglooWall")
+            iglooWall.size = .init(width: frame.width * 1.05, height: frame.width * 0.20)
+            iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.39)
+            iglooWall.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.5,
+                                                                     height: frame.height * 0.03))
+            iglooWall.physicsBody?.affectedByGravity = false
+            iglooWall.physicsBody?.allowsRotation = false
+            iglooWall.physicsBody?.pinned = true
+
+            addChild(iglooWall)
+        }
 
     private func setupSnowMachine() {
-        let snowMachine = SKSpriteNode(imageNamed: "SnowMachine")
-        snowMachine.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)
-        snowMachine.position = .init(x: frame.width * 0.18, y: frame.height * 0.129)
-        addChild(snowMachine)
+        snowMachine.node.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)
+        snowMachine.node.position = .init(x: frame.width * 0.18, y: frame.height * 0.129)
+        snowMachine.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.18, height: frame.width * 0.18))
+        snowMachine.node.physicsBody?.isDynamic = false
+        snowMachine.node.physicsBody?.affectedByGravity = false
+        addChild(snowMachine.node)
     }
 
     private func setup() {
+        self.physicsWorld.contactDelegate = self
         setupSnow()
         setupSnowMachine()
         setupSnowBox()
         setupGodolfredo()
         setupCannon(withIterator: 4)
+        setupCollisions()
+    }
+}
+
+extension GameBoard: SKPhysicsContactDelegate {
+    private func setupCollisions() {
+        let categoryPlayer: UInt32 = 0b0001
+        let categorySnowBox: UInt32 = 0b0010
+        let categorySnowMachine: UInt32 = 0b0011
+
+        snowMachine.node.physicsBody?.categoryBitMask = categorySnowMachine
+        snowBox.node.physicsBody?.categoryBitMask = categorySnowBox
+        player.node.physicsBody?.categoryBitMask = categoryPlayer
+
+    }
+    func didBegin(_ contact: SKPhysicsContact) {
+        let categoryPlayer: UInt32 = 0b0001
+        let categorySnowBox: UInt32 = 0b0010
+        let categorySnowMachine: UInt32 = 0b0011
+
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+
+        let playerInSnowBox = (firstBody.categoryBitMask == categoryPlayer && secondBody.categoryBitMask == categorySnowBox) ||
+        (firstBody.categoryBitMask == categorySnowBox && secondBody.categoryBitMask == categoryPlayer)
+
+        let playerInSnowMachine = (firstBody.categoryBitMask == categoryPlayer && secondBody.categoryBitMask == categorySnowMachine) ||
+        (firstBody.categoryBitMask == categorySnowMachine && secondBody.categoryBitMask == categoryPlayer)
+
+        if playerInSnowBox && (player.state == .waiting) {
+            self.player.state = ActorStateEnum.holding(projectile: .rawMaterial)
+            self.player.animationActor()
+        }
+
+        if playerInSnowMachine && (player.state == .holding(projectile: .rawMaterial)) {
+            self.player.state = .waiting
+            self.player.animationActor()
+
+            self.snowMachine.state = .enabled
+            self.snowMachine.turnOn()
+        }
+
+//        self.snowMachine.turnOn()
+
+//        self.player?.state = ActorStateEnum.holding(projectile: .rawMaterial)
+//        self.player?.animationActor()
+//        if contact.bodyB == obstacle.physicsBody {
+//            print("Sophia Cat foi de arrasta pra cima")
+//            character.run(
+//                SKAction.sequence([
+//                    SKAction.fadeOut(withDuration: 0.5),
+//                    SKAction.fadeIn(withDuration: 0.5)
+//                ])
+//            )
+//        }
     }
 }

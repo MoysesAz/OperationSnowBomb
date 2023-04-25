@@ -8,9 +8,10 @@
 import Foundation
 import SpriteKit
 
-class Actuator: SKSpriteNode, ActuatorProtocol {
+class Actuator: ActuatorProtocol {
+    var node: SKSpriteNode
+    var state: ActuatorStateEnum
 
-    private var state: StateProtocol
     var waitingTexture: [SKTexture]
     var disabledTexture: [SKTexture]
     var enabledTexture: [SKTexture]
@@ -19,30 +20,43 @@ class Actuator: SKSpriteNode, ActuatorProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(withName name: String,
-         state: StateProtocol = ActuatorStateEnum.disabled,
-         waitingTexture: SKTextureAtlas,
-         disabledTexture: SKTextureAtlas, enabledTexture: SKTextureAtlas ,position: CGPoint, size: CGSize) {
+    init(node: SKSpriteNode = SKSpriteNode(),
+         state: ActuatorStateEnum = .disabled,
+         waitingTexture: [SKTexture] = [],
+         disabledTexture: [SKTexture] = [],
+         enabledTexture: [SKTexture] = []) {
 
+        self.node = node
         self.state = state
-        self.waitingTexture = waitingTexture.textureNames.map(SKTexture.init(imageNamed:))
-        self.disabledTexture = disabledTexture.textureNames.map(SKTexture.init(imageNamed:))
-        self.enabledTexture = enabledTexture.textureNames.map(SKTexture.init(imageNamed:))
-        print(waitingTexture)
-        super.init(texture: self.disabledTexture[0],
-                   color: .clear,
-                   size: size)
-
-        self.name = name
-        self.position = position
+        self.waitingTexture = waitingTexture
+        self.disabledTexture = disabledTexture
+        self.enabledTexture = enabledTexture
 
     }
 
     func turnOn() {
+        state = ActuatorStateEnum.enabled
+        animationActuator()
 
     }
 
     func turnOff() {
+        state = ActuatorStateEnum.disabled
+        animationActuator()
+    }
 
+    public func animationActuator() {
+        switch state {
+        case ActuatorStateEnum.disabled:
+            let action = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
+            self.node.run(SKAction.repeatForever(action))
+        case ActuatorStateEnum.enabled:
+            let enabled = SKAction.animate(with: self.enabledTexture, timePerFrame: 0.1)
+            let waiting = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
+            let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled])
+            self.node.run(action)
+        default:
+            print("Problem in state Actor")
+        }
     }
 }
