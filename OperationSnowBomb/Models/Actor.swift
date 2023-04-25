@@ -65,23 +65,59 @@ class Actor: ActorProtocol {
             self.node.run(moveActionWithDone)
         }
 
-        func moveToLeft(location: CGPoint) {
-            let currentPosition = self.node.position
-            let diffVector = CGVector(dx: location.x - currentPosition.x, dy: location.y - currentPosition.y)
-            let moveAction = SKAction.move(by: diffVector, duration: 1)
-            let doneAction = SKAction.run({ [weak self] in
-                self?.moveEnd()
-            })
-            let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
-            self.node.run(moveActionWithDone)
-        }
-
-    func moveToUp() {
-        print("Up")
+    func moveToLeftJoystick() {
+        let diffVector = CGVector(dx: -100,
+                                  dy: 0)
+        let moveAction = SKAction.move(by: diffVector, duration: 0.2)
+        let doneAction = SKAction.run({ [weak self] in
+            self?.moveEnd()
+        })
+        let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
+        self.node.run(moveActionWithDone)
     }
 
-    func moveToDown() {
-        print("Down")
+    func moveToRightJoystick() {
+        let diffVector = CGVector(dx: 100,
+                                  dy: 0)
+        let moveAction = SKAction.move(by: diffVector, duration: 0.2)
+        let doneAction = SKAction.run({ [weak self] in
+            self?.moveEnd()
+        })
+        let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
+        self.node.run(moveActionWithDone)
+    }
+
+    func moveToLeft(location: CGPoint) {
+        let currentPosition = self.node.position
+        let diffVector = CGVector(dx: location.x - currentPosition.x, dy: location.y - currentPosition.y)
+        let moveAction = SKAction.move(by: diffVector, duration: 1)
+        let doneAction = SKAction.run({ [weak self] in
+            self?.moveEnd()
+        })
+        let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
+        self.node.run(moveActionWithDone)
+    }
+
+    func moveToUpJoystick() {
+        let diffVector = CGVector(dx: 0,
+                                  dy: 50)
+        let moveAction = SKAction.move(by: diffVector, duration: 0.2)
+        let doneAction = SKAction.run({ [weak self] in
+            self?.moveEnd()
+        })
+        let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
+        self.node.run(moveActionWithDone)
+    }
+
+    func moveToDownJoystick() {
+        let diffVector = CGVector(dx: 0,
+                                  dy: -50)
+        let moveAction = SKAction.move(by: diffVector, duration: 0.2)
+        let doneAction = SKAction.run({ [weak self] in
+            self?.moveEnd()
+        })
+        let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
+        self.node.run(moveActionWithDone)
     }
 
     func drop() {

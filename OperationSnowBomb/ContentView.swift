@@ -21,7 +21,7 @@ struct ContentView: View {
         return scene
     }
     var body: some View {
-        ZStack{
+        ZStack {
             Image("backgroundSnowBomb")
                 .resizable()
                 .scaledToFill()
