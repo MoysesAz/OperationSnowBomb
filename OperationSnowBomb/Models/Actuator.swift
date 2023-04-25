@@ -10,7 +10,7 @@ import SpriteKit
 
 class Actuator: ActuatorProtocol {
     var node: SKSpriteNode
-    var state: StateProtocol
+    var state: ActuatorStateEnum
 
     var waitingTexture: [SKTexture]
     var disabledTexture: [SKTexture]
@@ -21,7 +21,7 @@ class Actuator: ActuatorProtocol {
     }
 
     init(node: SKSpriteNode = SKSpriteNode(),
-         state: StateProtocol = ActuatorStateEnum.disabled,
+         state: ActuatorStateEnum = .disabled,
          waitingTexture: [SKTexture] = [],
          disabledTexture: [SKTexture] = [],
          enabledTexture: [SKTexture] = []) {
@@ -35,11 +35,14 @@ class Actuator: ActuatorProtocol {
     }
 
     func turnOn() {
+        state = ActuatorStateEnum.enabled
+        animationActuator()
 
     }
 
     func turnOff() {
         state = ActuatorStateEnum.disabled
+        animationActuator()
     }
 
     public func animationActuator() {
@@ -51,7 +54,7 @@ class Actuator: ActuatorProtocol {
             let enabled = SKAction.animate(with: self.enabledTexture, timePerFrame: 0.1)
             let waiting = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
             let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled])
-            self.node.run(SKAction.repeatForever(action))
+            self.node.run(action)
         default:
             print("Problem in state Actor")
         }

@@ -7,7 +7,18 @@
 
 import Foundation
 
-enum ActuatorStateEnum: StateProtocol {
+enum ActuatorStateEnum: StateProtocol, Equatable {
     case enabled
     case disabled
+
+    static func == (left: ActuatorStateEnum, right: ActuatorStateEnum) -> Bool {
+        switch (left, right) {
+        case (.enabled, .enabled):
+            return true
+        case (.disabled, .disabled):
+            return true
+        default:
+            return false
+        }
+    }
 }

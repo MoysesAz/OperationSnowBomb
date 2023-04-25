@@ -11,4 +11,6 @@ import SpriteKit
 protocol ActorProtocol: ActorMoveProtocol,
                         ActorFeaturesProtocol,
                         ActorTexturesProtocol,
-                        InteractProtocol {}
+                        InteractProtocol {
+    var state: ActorStateEnum { get set }
+}

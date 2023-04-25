@@ -8,8 +8,9 @@
 import SpriteKit
 
 class Actor: ActorProtocol {
+    var state: ActorStateEnum
+
     var node: SKSpriteNode
-    var state: StateProtocol
 
     var waitingTexture: [SKTexture]
     var holdingRawTexture: [SKTexture]
@@ -22,7 +23,7 @@ class Actor: ActorProtocol {
     var distanceToMove: CGFloat = 0
 
     init(node: SKSpriteNode = SKSpriteNode(),
-         state: StateProtocol = ActorStateEnum.waiting,
+         state: ActorStateEnum = .waiting,
          waitingTexture: [SKTexture] = [],
          holdingRawTexture: [SKTexture] = [],
          holdingRefinedTexture: [SKTexture] = []) {

@@ -10,10 +10,12 @@ import SpriteKit
 class GameBoard: SKScene {
     var player: Actor
     var snowBox: Accessories
+    var snowMachine: Actuator
 
-    internal init(player: Actor, snowBox: Accessories) {
+    internal init(player: Actor, snowBox: Accessories, snowMachine: Actuator) {
         self.player = player
         self.snowBox = snowBox
+        self.snowMachine = snowMachine
         super.init(size: .init(width: 0, height: 0))
     }
 
@@ -53,6 +55,7 @@ extension GameBoard {
         player.node.xScale = abs(player.node.xScale) * player.multiplierForDirection
     }
 }
+
 
 extension GameBoard {
     private func setupSnowBox() {
@@ -106,10 +109,12 @@ extension GameBoard {
     }
 
     private func setupSnowMachine() {
-        let snowMachine = SKSpriteNode(imageNamed: "SnowMachine")
-        snowMachine.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)
-        snowMachine.position = .init(x: frame.width * 0.18, y: frame.height * 0.129)
-        addChild(snowMachine)
+        snowMachine.node.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)
+        snowMachine.node.position = .init(x: frame.width * 0.18, y: frame.height * 0.129)
+        snowMachine.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.18, height: frame.width * 0.18))
+        snowMachine.node.physicsBody?.isDynamic = false
+        snowMachine.node.physicsBody?.affectedByGravity = false
+        addChild(snowMachine.node)
     }
 
     private func setup() {
@@ -119,16 +124,49 @@ extension GameBoard {
         setupSnowBox()
         setupGodolfredo()
         setupCannon(withIterator: 4)
+        setupCollisions()
     }
 }
 
 extension GameBoard: SKPhysicsContactDelegate {
-    func didBegin(_ contact: SKPhysicsContact) {
-        print("A:", contact.bodyA.node?.name ?? "no node")
-        print("B:", contact.bodyB.node?.name ?? "no node")
+    private func setupCollisions() {
+        let categoryPlayer: UInt32 = 0b0001
+        let categorySnowBox: UInt32 = 0b0010
+        let categorySnowMachine: UInt32 = 0b0011
 
-        self.player.state = ActorStateEnum.holding(projectile: .refinedMaterial)
-        self.player.animationActor()
+        snowMachine.node.physicsBody?.categoryBitMask = categorySnowMachine
+        snowBox.node.physicsBody?.categoryBitMask = categorySnowBox
+        player.node.physicsBody?.categoryBitMask = categoryPlayer
+
+    }
+    func didBegin(_ contact: SKPhysicsContact) {
+        let categoryPlayer: UInt32 = 0b0001
+        let categorySnowBox: UInt32 = 0b0010
+        let categorySnowMachine: UInt32 = 0b0011
+
+        let firstBody = contact.bodyA
+        let secondBody = contact.bodyB
+
+        let playerInSnowBox = (firstBody.categoryBitMask == categoryPlayer && secondBody.categoryBitMask == categorySnowBox) ||
+        (firstBody.categoryBitMask == categorySnowBox && secondBody.categoryBitMask == categoryPlayer)
+
+        let playerInSnowMachine = (firstBody.categoryBitMask == categoryPlayer && secondBody.categoryBitMask == categorySnowMachine) ||
+        (firstBody.categoryBitMask == categorySnowMachine && secondBody.categoryBitMask == categoryPlayer)
+
+        if playerInSnowBox && (player.state == .waiting) {
+            self.player.state = ActorStateEnum.holding(projectile: .rawMaterial)
+            self.player.animationActor()
+        }
+
+        if playerInSnowMachine && (player.state == .holding(projectile: .rawMaterial)) {
+            self.player.state = .waiting
+            self.player.animationActor()
+
+            self.snowMachine.state = .enabled
+            self.snowMachine.turnOn()
+        }
+
+//        self.snowMachine.turnOn()
 
 //        self.player?.state = ActorStateEnum.holding(projectile: .rawMaterial)
 //        self.player?.animationActor()

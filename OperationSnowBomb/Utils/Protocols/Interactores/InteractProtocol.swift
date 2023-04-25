@@ -8,6 +8,5 @@
 import SpriteKit
 
 protocol InteractProtocol {
-    var state: StateProtocol { get set }
     var node: SKSpriteNode { get set }
 }
