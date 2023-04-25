@@ -176,9 +176,15 @@ extension GameBoard {
 extension GameBoard: SKPhysicsContactDelegate {
     private func basicPhysics() {
         snowMachine.node.physicsBody?.isDynamic = false
+        snowMachine.node.physicsBody?.affectedByGravity = false
+
         snowBox.node.physicsBody?.isDynamic = false
+        snowBox.node.physicsBody?.affectedByGravity = false
 
         iglooWall.physicsBody?.isDynamic = false
+        iglooWall.physicsBody?.affectedByGravity = false
+        iglooWall.physicsBody?.pinned = true
+
 
         player.node.physicsBody?.affectedByGravity = false
         player.node.physicsBody?.isDynamic = true
@@ -193,6 +199,8 @@ extension GameBoard: SKPhysicsContactDelegate {
         snowMachine.node.physicsBody?.categoryBitMask = categorySnowMachine
         snowBox.node.physicsBody?.categoryBitMask = categorySnowBox
         player.node.physicsBody?.categoryBitMask = categoryPlayer
+        self.player.node.physicsBody?.contactTestBitMask = 0b0010 // sem essa merda nada funciona
+
 
     }
 
