@@ -21,17 +21,7 @@ struct ContentView: View {
         return scene
     }
     var body: some View {
-        ZStack{
-            Image("backgroundSnowBomb")
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
-            GeometryReader { frame in
-                SpriteView(scene: scene, options: [.allowsTransparency])
-                    .frame(width: frame.size.width, height: frame.size.height, alignment: .center)
-            }
-        }
-        .ignoresSafeArea()
+        SpriteView(scene: scene)
     }
 }
 

@@ -9,9 +9,9 @@ import SpriteKit
 
 class Accessories: AcessoriesProtocol {
     var node: SKSpriteNode
-    var state: StateProtocol
+    var state: AccesoriesStateEnum
 
-    init(node: SKSpriteNode = SKSpriteNode(), state: StateProtocol) {
+    init(node: SKSpriteNode = SKSpriteNode(), state: AccesoriesStateEnum) {
         self.node = node
         self.state = state
     }

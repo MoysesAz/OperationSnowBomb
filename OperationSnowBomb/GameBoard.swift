@@ -12,13 +12,18 @@ class GameBoard: SKScene {
     var player: Actor
     var snowBox: Accessories
     var snowMachine: SnowMachine
+    var iglooWall: SKSpriteNode = SKSpriteNode(imageNamed: "IglooWall")
+    var background: SKSpriteNode = SKSpriteNode(imageNamed: "backgroundSnowBomb")
     let actButton = SKShapeNode(circleOfRadius: 50)
     let innerCircle = SKShapeNode(circleOfRadius: 25)
     var alphaBegan:CGFloat = 1
     var alphaEnded:CGFloat = 0.8
     let impactGenerator = UIImpactFeedbackGenerator(style: .light)
 
-    internal init(player: Actor, snowBox: Accessories, snowMachine: SnowMachine) {
+    internal init(player: Actor,
+                  snowBox: Accessories,
+                  snowMachine: SnowMachine
+    ) {
         self.player = player
         self.snowBox = snowBox
         self.snowMachine = snowMachine
@@ -34,6 +39,8 @@ class GameBoard: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setup()
+        physicsWorld.contactDelegate = self
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,7 +74,6 @@ extension GameBoard {
     private func indentifyPlayerDirections(location: CGPoint) {
         self.player.moveDifference = CGPoint(x: location.x - player.node.position.x,
                                              y: location.y - player.node.position.y)
-
         if player.moveDifference.x < 0 {
             player.multiplierForDirection = -1.0
             player.animationActor()
@@ -83,12 +89,10 @@ extension GameBoard {
 }
 
 extension GameBoard {
-    private func backgroundArctic() {
-//        let backgroundArctic = SKSpriteNode(imageNamed: "backgroundSnowBomb")
-//        backgroundArctic.zPosition = -1
-//        backgroundArctic.size = .init(width: frame.width, height: frame.height)
-//        backgroundArctic.anchorPoint = .init(x: 0.5, y: 0.5)
-//        addChild(backgroundArctic)
+    private func setupBackground() {
+        background.zPosition = -1
+        background.size = .init(width: frame.width, height: frame.height)
+        background.position = .init(x: frame.width * 0.5, y: frame.height * 0.5)
     }
 
     private func setupSnowBox() {
@@ -96,9 +100,7 @@ extension GameBoard {
         snowBox.node.position = .init(x: frame.width * 0.90, y: frame.height * 0.129)
         snowBox.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.10,
                                                                     height: frame.width * 0.10))
-        snowBox.node.physicsBody?.isDynamic = false
-        snowBox.node.physicsBody?.affectedByGravity = false
-        addChild(self.snowBox.node)
+
     }
 
     private func setupCannon(withIterator number: Int) {
@@ -122,42 +124,26 @@ extension GameBoard {
         self.player.node.position = .init(x: frame.width * 0.5, y: frame.height * 0.15)
         self.player.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.15,
                                                                         height: frame.width * 0.15))
-        self.player.node.physicsBody?.affectedByGravity = false
-        self.player.node.physicsBody?.isDynamic = true
-        self.player.node.physicsBody?.allowsRotation = false
-        self.player.node.physicsBody?.categoryBitMask = 0b0001
-        self.player.node.physicsBody?.contactTestBitMask = 0b0010
-        addChild(self.player.node)
     }
 
-    private func setupSnow() {
-        let iglooWall = SKSpriteNode(imageNamed: "IglooWall")
+    private func setupIglooWall() {
         iglooWall.size = .init(width: frame.width * 1.05, height: frame.width * 0.20)
         iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.39)
-        iglooWall.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.5,
+        iglooWall.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 1.05,
                                                                  height: frame.height * 0.03))
-        iglooWall.physicsBody?.affectedByGravity = false
-        iglooWall.physicsBody?.allowsRotation = false
-        iglooWall.physicsBody?.pinned = true
-
-        addChild(iglooWall)
     }
 
     private func setupSnowMachine() {
         snowMachine.node.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)
-        snowMachine.node.position = .init(x: frame.width * 0.18, y: frame.height * 0.129)
+        snowMachine.node.position = .init(x: frame.width * 0.18, y: frame.height * 0.18)
         snowMachine.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.18,
                                                                         height: frame.width * 0.18))
-        snowMachine.node.physicsBody?.isDynamic = false
-        snowMachine.node.physicsBody?.affectedByGravity = false
-        addChild(snowMachine.node)
     }
 
     private func setupJoystick() {
         innerCircle.fillColor = UIColor.darkGray
         innerCircle.strokeColor = .clear
         innerCircle.position = CGPoint(x: actButton.frame.midX, y: actButton.frame.midY)
-
         actButton.fillColor = UIColor.lightGray
         actButton.lineWidth = 2
         actButton.strokeColor = UIColor.clear
@@ -167,20 +153,40 @@ extension GameBoard {
         actButton.addChild(innerCircle)
     }
 
+    private func addChilds() {
+        addChild(background)
+        addChild(iglooWall)
+        addChild(player.node)
+        addChild(snowBox.node)
+        addChild(snowMachine.node)
+
+    }
+
     private func setup() {
-        self.physicsWorld.contactDelegate = self
-        setupSnow()
-        setupSnowMachine()
+        setupBackground()
         setupSnowBox()
+        setupSnowMachine()
         setupGodolfredo()
-        setupCannon(withIterator: 4)
+        setupIglooWall()
         setupCollisions()
-        backgroundArctic()
-        setupJoystick()
+        basicPhysics()
+        setupCollisions()
+        addChilds()
     }
 }
 
 extension GameBoard: SKPhysicsContactDelegate {
+    private func basicPhysics() {
+        snowMachine.node.physicsBody?.isDynamic = false
+        snowBox.node.physicsBody?.isDynamic = false
+
+        iglooWall.physicsBody?.isDynamic = false
+
+        player.node.physicsBody?.affectedByGravity = false
+        player.node.physicsBody?.isDynamic = true
+        player.node.physicsBody?.allowsRotation = false
+    }
+
     private func setupCollisions() {
         let categoryPlayer: UInt32 = 0b0001
         let categorySnowBox: UInt32 = 0b0010
@@ -191,6 +197,7 @@ extension GameBoard: SKPhysicsContactDelegate {
         player.node.physicsBody?.categoryBitMask = categoryPlayer
 
     }
+
     func didBegin(_ contact: SKPhysicsContact) {
         let categoryPlayer: UInt32 = 0b0001
         let categorySnowBox: UInt32 = 0b0010
@@ -217,19 +224,5 @@ extension GameBoard: SKPhysicsContactDelegate {
             self.snowMachine.state = .enabled
             self.snowMachine.turnOn()
         }
-
-        //        self.snowMachine.turnOn()
-
-        //        self.player?.state = ActorStateEnum.holding(projectile: .rawMaterial)
-        //        self.player?.animationActor()
-        //        if contact.bodyB == obstacle.physicsBody {
-        //            print("Sophia Cat foi de arrasta pra cima")
-        //            character.run(
-        //                SKAction.sequence([
-        //                    SKAction.fadeOut(withDuration: 0.5),
-        //                    SKAction.fadeIn(withDuration: 0.5)
-        //                ])
-        //            )
-        //        }
     }
 }

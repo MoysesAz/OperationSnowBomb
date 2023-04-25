@@ -54,5 +54,4 @@ class Factory {
 
         return snowMachine
     }
-
 }
