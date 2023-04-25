@@ -39,8 +39,6 @@ class GameBoard: SKScene {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         setup()
-        physicsWorld.contactDelegate = self
-
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -163,12 +161,12 @@ extension GameBoard {
     }
 
     private func setup() {
+        self.physicsWorld.contactDelegate = self
         setupBackground()
         setupSnowBox()
         setupSnowMachine()
         setupGodolfredo()
         setupIglooWall()
-        setupCollisions()
         basicPhysics()
         setupCollisions()
         addChilds()
@@ -202,7 +200,6 @@ extension GameBoard: SKPhysicsContactDelegate {
         let categoryPlayer: UInt32 = 0b0001
         let categorySnowBox: UInt32 = 0b0010
         let categorySnowMachine: UInt32 = 0b0011
-
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
 
