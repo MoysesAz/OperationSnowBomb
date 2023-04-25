@@ -30,17 +30,23 @@ class Factory {
         return snowBox
     }
 
-    func snowMachine() -> Actuator {
+    func snowMachine() -> SnowMachine {
         let waitingTextureAtlas = SKTextureAtlas(named:"SnowMachineWaiting")
         let disabledTextureAtlas = SKTextureAtlas(named: "SnowMachineDisabled")
         let enabledTextureAtlas = SKTextureAtlas(named: "SnowMachineEnabled")
 
-        let waitingTexture = waitingTextureAtlas.textureNames.map(SKTexture.init(imageNamed:))
-        let disabledTexture = disabledTextureAtlas.textureNames.map(SKTexture.init(imageNamed:))
-        let enabledTexture = enabledTextureAtlas.textureNames.map(SKTexture.init(imageNamed:))
-        let node = SKSpriteNode(texture: waitingTexture[0])
+        let waitingTexture = waitingTextureAtlas.textureNames
+            .sorted()
+            .map(SKTexture.init(imageNamed:))
+        let disabledTexture = disabledTextureAtlas.textureNames
+            .sorted()
+            .map(SKTexture.init(imageNamed:))
+        let enabledTexture = enabledTextureAtlas.textureNames
+            .sorted()
+            .map(SKTexture.init(imageNamed:))
+        let node = SKSpriteNode(texture: disabledTexture[0])
 
-        let snowMachine = Actuator(node: node,
+        let snowMachine = SnowMachine(node: node,
                                    state: ActuatorStateEnum.disabled,
                                    waitingTexture: waitingTexture,
                                    disabledTexture: disabledTexture,
