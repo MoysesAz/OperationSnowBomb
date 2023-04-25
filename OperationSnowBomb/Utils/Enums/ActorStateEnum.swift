@@ -7,7 +7,18 @@
 
 import Foundation
 
-enum ActorStateEnum: StateProtocol {
+enum ActorStateEnum: StateProtocol, Equatable {
     case waiting
     case holding(projectile: ProjectileStateEnum)
+
+    static func == (left: ActorStateEnum, right: ActorStateEnum) -> Bool {
+        switch (left, right) {
+        case (.waiting, .waiting):
+            return true
+        case let (.holding(projectileA), .holding(projectileB)):
+            return projectileA == projectileB
+        default:
+            return false
+        }
+    }
 }

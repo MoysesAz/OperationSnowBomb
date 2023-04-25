@@ -18,12 +18,16 @@
 		4ED1B94129E449E0005C1511 /* ActorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B94029E449E0005C1511 /* ActorProtocol.swift */; };
 		4ED1B94329E44C81005C1511 /* ActuatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */; };
 		4ED1B94529E44F97005C1511 /* AccesoriesStateEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED1B94429E44F97005C1511 /* AccesoriesStateEnum.swift */; };
+		95F0279029F7069A00A83497 /* Instances.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F0278F29F7069A00A83497 /* Instances.swift */; };
 		95FD15F829D6FE830025DFA8 /* OperationSnowBombApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FD15F729D6FE830025DFA8 /* OperationSnowBombApp.swift */; };
 		95FD15FA29D6FE830025DFA8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FD15F929D6FE830025DFA8 /* ContentView.swift */; };
 		95FD15FC29D6FE840025DFA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FD15FB29D6FE840025DFA8 /* Assets.xcassets */; };
 		95FD15FF29D6FE840025DFA8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95FD15FE29D6FE840025DFA8 /* Preview Assets.xcassets */; };
 		DD43967129E581A900E1DF19 /* GameBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967029E581A900E1DF19 /* GameBoard.swift */; };
 		DD43967429E5855700E1DF19 /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967329E5855700E1DF19 /* Actor.swift */; };
+		DD43967629E6EF4900E1DF19 /* AccesoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */; };
+		DD43967829E6F0C400E1DF19 /* Accessories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967729E6F0C400E1DF19 /* Accessories.swift */; };
+		DD4396B529F16DCC00E1DF19 /* Actuator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4396B429F16DCC00E1DF19 /* Actuator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +55,7 @@
 		4ED1B94029E449E0005C1511 /* ActorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorProtocol.swift; sourceTree = "<group>"; };
 		4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActuatorProtocol.swift; sourceTree = "<group>"; };
 		4ED1B94429E44F97005C1511 /* AccesoriesStateEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccesoriesStateEnum.swift; sourceTree = "<group>"; };
+		95F0278F29F7069A00A83497 /* Instances.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instances.swift; sourceTree = "<group>"; };
 		95FD15F429D6FE830025DFA8 /* OperationSnowBomb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OperationSnowBomb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95FD15F729D6FE830025DFA8 /* OperationSnowBombApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationSnowBombApp.swift; sourceTree = "<group>"; };
 		95FD15F929D6FE830025DFA8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -58,6 +63,9 @@
 		95FD15FE29D6FE840025DFA8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DD43967029E581A900E1DF19 /* GameBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBoard.swift; sourceTree = "<group>"; };
 		DD43967329E5855700E1DF19 /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
+		DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccesoriesProtocol.swift; sourceTree = "<group>"; };
+		DD43967729E6F0C400E1DF19 /* Accessories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessories.swift; sourceTree = "<group>"; };
+		DD4396B429F16DCC00E1DF19 /* Actuator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actuator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,13 +91,9 @@
 		4ED1B92029E42B32005C1511 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				957A77ED29F72AE700487104 /* Interactores */,
+				957A77EC29F72A2500487104 /* Actor */,
 				4ED1B92129E42B86005C1511 /* StateProtocol.swift */,
-				4ED1B92329E42BD7005C1511 /* InteractProtocol.swift */,
-				4ED1B93929E4373B005C1511 /* ActorMoveProtocol.swift */,
-				4ED1B93B29E4463E005C1511 /* ActorFeaturesProtocol.swift */,
-				4ED1B93D29E44814005C1511 /* ActorTexturesProtocol.swift */,
-				4ED1B94029E449E0005C1511 /* ActorProtocol.swift */,
-				4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -103,6 +107,35 @@
 				4ED1B94429E44F97005C1511 /* AccesoriesStateEnum.swift */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		957A77EC29F72A2500487104 /* Actor */ = {
+			isa = PBXGroup;
+			children = (
+				4ED1B93929E4373B005C1511 /* ActorMoveProtocol.swift */,
+				4ED1B93B29E4463E005C1511 /* ActorFeaturesProtocol.swift */,
+				4ED1B93D29E44814005C1511 /* ActorTexturesProtocol.swift */,
+			);
+			path = Actor;
+			sourceTree = "<group>";
+		};
+		957A77ED29F72AE700487104 /* Interactores */ = {
+			isa = PBXGroup;
+			children = (
+				4ED1B94029E449E0005C1511 /* ActorProtocol.swift */,
+				4ED1B92329E42BD7005C1511 /* InteractProtocol.swift */,
+				DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */,
+				4ED1B94229E44C81005C1511 /* ActuatorProtocol.swift */,
+			);
+			path = Interactores;
+			sourceTree = "<group>";
+		};
+		95F0278D29F7067F00A83497 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				95F0278F29F7069A00A83497 /* Instances.swift */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 		95FD15EB29D6FE830025DFA8 = {
@@ -124,6 +157,7 @@
 		95FD15F629D6FE830025DFA8 /* OperationSnowBomb */ = {
 			isa = PBXGroup;
 			children = (
+				95F0278D29F7067F00A83497 /* Mock */,
 				DD43967229E584F500E1DF19 /* Models */,
 				4ED1B91F29E42ABD005C1511 /* Utils */,
 				95FD15F729D6FE830025DFA8 /* OperationSnowBombApp.swift */,
@@ -147,6 +181,8 @@
 			isa = PBXGroup;
 			children = (
 				DD43967329E5855700E1DF19 /* Actor.swift */,
+				DD4396B429F16DCC00E1DF19 /* Actuator.swift */,
+				DD43967729E6F0C400E1DF19 /* Accessories.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -248,12 +284,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD43967829E6F0C400E1DF19 /* Accessories.swift in Sources */,
 				4ED1B94129E449E0005C1511 /* ActorProtocol.swift in Sources */,
 				4ED1B93E29E44814005C1511 /* ActorTexturesProtocol.swift in Sources */,
 				4ED1B94329E44C81005C1511 /* ActuatorProtocol.swift in Sources */,
 				4ED1B93C29E4463E005C1511 /* ActorFeaturesProtocol.swift in Sources */,
+				95F0279029F7069A00A83497 /* Instances.swift in Sources */,
 				95FD15FA29D6FE830025DFA8 /* ContentView.swift in Sources */,
 				4ED1B93A29E4373B005C1511 /* ActorMoveProtocol.swift in Sources */,
+				DD43967629E6EF4900E1DF19 /* AccesoriesProtocol.swift in Sources */,
+				DD4396B529F16DCC00E1DF19 /* Actuator.swift in Sources */,
 				4ED1B92429E42BD7005C1511 /* InteractProtocol.swift in Sources */,
 				4ED1B92229E42B86005C1511 /* StateProtocol.swift in Sources */,
 				95FD15F829D6FE830025DFA8 /* OperationSnowBombApp.swift in Sources */,
@@ -397,8 +437,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -426,8 +465,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ActuatorProtocol {
+protocol ActuatorProtocol: InteractProtocol {
     func turnOn()
     func turnOff()
 }
