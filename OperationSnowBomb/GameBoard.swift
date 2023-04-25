@@ -98,15 +98,17 @@ extension GameBoard {
     }
 
     private func setupSnow() {
-        let iglooWall = SKSpriteNode(imageNamed: "IglooWall")
-        iglooWall.size = .init(width: frame.width * 1.05, height: frame.width * 0.20)
-        iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.39)
-        iglooWall.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 1.05,
-                                                                 height: frame.width * 0.20))
-        iglooWall.physicsBody?.isDynamic = false
-        iglooWall.physicsBody?.affectedByGravity = false
-        addChild(iglooWall)
-    }
+            let iglooWall = SKSpriteNode(imageNamed: "IglooWall")
+            iglooWall.size = .init(width: frame.width * 1.05, height: frame.width * 0.20)
+            iglooWall.position = .init(x: frame.width * 0.5, y: frame.height * 0.39)
+            iglooWall.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.5,
+                                                                     height: frame.height * 0.03))
+            iglooWall.physicsBody?.affectedByGravity = false
+            iglooWall.physicsBody?.allowsRotation = false
+            iglooWall.physicsBody?.pinned = true
+
+            addChild(iglooWall)
+        }
 
     private func setupSnowMachine() {
         snowMachine.node.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)

@@ -9,7 +9,6 @@ import SpriteKit
 
 class Actor: ActorProtocol {
     var state: ActorStateEnum
-
     var node: SKSpriteNode
 
     var waitingTexture: [SKTexture]
@@ -56,22 +55,26 @@ class Actor: ActorProtocol {
     }
 
     func moveToRight(location: CGPoint) {
-        let moveAction = SKAction.move(to: location, duration: 1)
-        let doneAction = SKAction.run({ [weak self] in
-            self?.moveEnd()
-        })
-        let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
-        self.node.run(moveActionWithDone)
-    }
+            let currentPosition = self.node.position
+            let diffVector = CGVector(dx: location.x - currentPosition.x, dy: location.y - currentPosition.y)
+            let moveAction = SKAction.move(by: diffVector, duration: 1)
+            let doneAction = SKAction.run({ [weak self] in
+                self?.moveEnd()
+            })
+            let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
+            self.node.run(moveActionWithDone)
+        }
 
-    func moveToLeft(location: CGPoint) {
-        let moveAction = SKAction.move(to: location, duration: 1)
-        let doneAction = SKAction.run({ [weak self] in
-            self?.moveEnd()
-        })
-        let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
-        self.node.run(moveActionWithDone)
-    }
+        func moveToLeft(location: CGPoint) {
+            let currentPosition = self.node.position
+            let diffVector = CGVector(dx: location.x - currentPosition.x, dy: location.y - currentPosition.y)
+            let moveAction = SKAction.move(by: diffVector, duration: 1)
+            let doneAction = SKAction.run({ [weak self] in
+                self?.moveEnd()
+            })
+            let moveActionWithDone = SKAction.sequence([moveAction, doneAction])
+            self.node.run(moveActionWithDone)
+        }
 
     func moveToUp() {
         print("Up")
