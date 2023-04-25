@@ -17,12 +17,19 @@ struct ContentView: View {
                               snowMachine: factory.snowMachine()
         )
         scene.scaleMode = .resizeFill
+        scene.backgroundColor = .clear
         return scene
     }
     var body: some View {
-        GeometryReader { frame in
-            SpriteView(scene: scene)
-                .frame(width: frame.size.width, height: frame.size.height, alignment: .center)
+        ZStack{
+            Image("backgroundSnowBomb")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
+            GeometryReader { frame in
+                SpriteView(scene: scene, options: [.allowsTransparency])
+                    .frame(width: frame.size.width, height: frame.size.height, alignment: .center)
+            }
         }
         .ignoresSafeArea()
     }

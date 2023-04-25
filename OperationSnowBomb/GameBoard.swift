@@ -6,6 +6,7 @@
 //
 
 import SpriteKit
+import SwiftUI
 
 class GameBoard: SKScene {
     var player: Actor
@@ -22,6 +23,8 @@ class GameBoard: SKScene {
         self.snowBox = snowBox
         self.snowMachine = snowMachine
         super.init(size: .init(width: 0, height: 0))
+        self.backgroundColor = .clear
+
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +33,6 @@ class GameBoard: SKScene {
 
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        backgroundColor = .systemBlue
         setup()
     }
 
@@ -45,7 +47,7 @@ class GameBoard: SKScene {
             innerCircle.alpha = alphaBegan
             impactGenerator.impactOccurred()
             print("botao funcionando")
-        } 
+        }
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -82,11 +84,11 @@ extension GameBoard {
 
 extension GameBoard {
     private func backgroundArctic() {
-        let backgroundArctic = SKSpriteNode(imageNamed: "backgroundSnowBomb")
-        backgroundArctic.zPosition = -1
-        backgroundArctic.size = .init(width: frame.width * 1, height: frame.height * 1.12)
-        backgroundArctic.position = .init(x: frame.width * 0.5, y: frame.width * 0.35)
-        addChild(backgroundArctic)
+//        let backgroundArctic = SKSpriteNode(imageNamed: "backgroundSnowBomb")
+//        backgroundArctic.zPosition = -1
+//        backgroundArctic.size = .init(width: frame.width, height: frame.height)
+//        backgroundArctic.anchorPoint = .init(x: 0.5, y: 0.5)
+//        addChild(backgroundArctic)
     }
 
     private func setupSnowBox() {
