@@ -229,19 +229,18 @@ extension GameBoard {
 
     private func setupCannon(withIterator number: Int) {
                 let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-                var categoryCannon: UInt32 = 0b0100
+                var categoryCannon: [UInt32] = [0b0001000, 0b0010000, 0b0100000, 0b1000000]
 
                 for iterator in 0...number-1 {
                     let positionXMulti = 0.188 + 0.207 * Double(iterator)
                     let cannon = Factory().cannon()
-                    cannon.node.position = .init(x: frame.width * positionXMulti, y: frame.height * 0.30)
+                    cannon.node.position = .init(x: frame.width * positionXMulti, y: frame.height * 0.45)
                     cannon.node.size = sizeCannons
                     cannon.node.physicsBody = SKPhysicsBody(rectangleOf: sizeCannons)
                     cannon.node.physicsBody?.isDynamic = false
                     cannon.node.physicsBody?.affectedByGravity = false
-                    cannon.node.physicsBody?.contactTestBitMask = categoryCannon
+                    cannon.node.physicsBody?.categoryBitMask = categoryCannon[iterator]
                     cannons.append(cannon)
-                    categoryCannon += 1
                     addChild(cannon.node)
                 }
     }
@@ -316,7 +315,6 @@ extension GameBoard {
         addChild(player.node)
         addChild(snowBox.node)
         addChild(snowMachine.node)
-
     }
 
     private func setup() {
@@ -352,13 +350,22 @@ extension GameBoard {
     }
 
     private func setupCollisions() {
-        let categoryPlayer: UInt32 = 0b0001
-        let categorySnowBox: UInt32 = 0b0010
-        let categorySnowMachine: UInt32 = 0b0011
+        let categoryPlayer: UInt32      = 0b0000001
+        let categorySnowBox: UInt32     = 0b0000010
+        let categorySnowMachine: UInt32 = 0b0000100
+        let categoryCannon0: UInt32     = 0b0001000
+        let categoryCannon1: UInt32     = 0b0010000
+        let categoryCannon2: UInt32     = 0b0100000
+        let categoryCannon3: UInt32     = 0b1000000
+
+
+        // 0b0010
+        // 0b0100
+        // 0b0110
 
         snowMachine.node.physicsBody?.categoryBitMask = categorySnowMachine
         snowBox.node.physicsBody?.categoryBitMask = categorySnowBox
         player.node.physicsBody?.categoryBitMask = categoryPlayer
-        self.player.node.physicsBody?.contactTestBitMask = 0b0010 // sem essa merda nada funciona
+        self.player.node.physicsBody?.contactTestBitMask = categorySnowBox + categorySnowMachine + categoryCannon0 + categoryCannon1 + categoryCannon2 + categoryCannon3 // sem essa merda nada funciona
     }
 }

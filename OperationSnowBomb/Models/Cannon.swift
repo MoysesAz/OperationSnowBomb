@@ -53,7 +53,8 @@ class Cannon: ActuatorProtocol {
             let enabled = SKAction.animate(with: self.enabledTexture, timePerFrame: 0.1)
             let waiting = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
             let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled])
-            self.node.run(action)
+            self.node.run(action) {
+            }
         case .waiting:
             print()
         }
