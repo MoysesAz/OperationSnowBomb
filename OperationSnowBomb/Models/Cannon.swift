@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-class Actuator: ActuatorProtocol {
+class Cannon: ActuatorProtocol {
     var node: SKSpriteNode
     var state: ActuatorStateEnum
 
@@ -37,7 +37,6 @@ class Actuator: ActuatorProtocol {
     func turnOn() {
         state = ActuatorStateEnum.enabled
         animationActuator()
-
     }
 
     func turnOff() {
@@ -55,7 +54,6 @@ class Actuator: ActuatorProtocol {
             let waiting = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
             let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled])
             self.node.run(action)
-
         case .waiting:
             print()
         }

@@ -54,4 +54,29 @@ class Factory {
 
         return snowMachine
     }
+
+    func cannon() -> Cannon {
+        let waitingTextureAtlas = SKTextureAtlas(named:"CannonWaiting")
+        let disabledTextureAtlas = SKTextureAtlas(named: "CannonDisabled")
+        let enabledTextureAtlas = SKTextureAtlas(named: "CannonEnabled")
+
+        let waitingTexture = waitingTextureAtlas.textureNames
+            .sorted()
+            .map(SKTexture.init(imageNamed:))
+        let disabledTexture = disabledTextureAtlas.textureNames
+            .sorted()
+            .map(SKTexture.init(imageNamed:))
+        let enabledTexture = enabledTextureAtlas.textureNames
+            .sorted()
+            .map(SKTexture.init(imageNamed:))
+        let node = SKSpriteNode(texture: disabledTexture[0])
+
+        let cannon = Cannon(node: node,
+                                   state: ActuatorStateEnum.disabled,
+                                   waitingTexture: waitingTexture,
+                                   disabledTexture: disabledTexture,
+                                   enabledTexture: enabledTexture)
+
+        return cannon
+    }
 }

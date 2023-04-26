@@ -15,6 +15,7 @@ class GameBoard: SKScene {
     var iglooWall: SKSpriteNode = SKSpriteNode(imageNamed: "IglooWall")
     var background: SKSpriteNode = SKSpriteNode(imageNamed: "backgroundSnowBomb")
     let arrowsJoystick: ArrowsJoystick = ArrowsJoystick()
+    var cannons: [Cannon] = []
     let actButton = SKShapeNode(circleOfRadius: 50)
     let innerCircle = SKShapeNode(circleOfRadius: 25)
     var alphaBegan:CGFloat = 1
@@ -148,17 +149,20 @@ extension GameBoard {
 
     private func setupCannon(withIterator number: Int) {
                 let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
+                var categoryCannon: UInt32 = 0b0100
 
                 for iterator in 0...number-1 {
                     let positionXMulti = 0.188 + 0.207 * Double(iterator)
-                    let cannon = Actuator(
-                                          waitingTexture: SKTextureAtlas(named:"CannonWaiting"),
-                                          disabledTexture: SKTextureAtlas(named:"CannonDisabled"),
-                                          enabledTexture: SKTextureAtlas(named:"CannonEnabled"),
-                                          position: .init(x: frame.width * positionXMulti ,
-                                                          y: frame.height * 0.42),
-                                                          size: sizeCannons)
-                    addChild(cannon)
+                    let cannon = Factory().cannon()
+                    cannon.node.position = .init(x: frame.width * positionXMulti, y: frame.height * 0.30)
+                    cannon.node.size = sizeCannons
+                    cannon.node.physicsBody = SKPhysicsBody(rectangleOf: sizeCannons)
+                    cannon.node.physicsBody?.isDynamic = false
+                    cannon.node.physicsBody?.affectedByGravity = false
+                    cannon.node.physicsBody?.contactTestBitMask = categoryCannon
+                    cannons.append(cannon)
+                    categoryCannon += 1
+                    addChild(cannon.node)
                 }
     }
 
@@ -245,6 +249,7 @@ extension GameBoard {
         basicPhysics()
         setupCollisions()
         addChilds()
+        setupCannon(withIterator: 4)
         setupJoystick()
 //        setupArrowsJoystick()
     }
