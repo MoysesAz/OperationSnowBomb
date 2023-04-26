@@ -23,21 +23,75 @@ class ArrowsJoystick: SKNode {
 
 //    let actor: Actor = Actor()
 
+    func arrowUnpressed(nodePlayer: Actor) {
+        nodePlayer.moveEnd()
+        circle.alpha = 0.5
+
+        rightArrow.fillColor = .gray
+        rightArrowIsActive = false
+
+        leftArrow.fillColor = .gray
+        leftArrowIsActive = false
+
+        upArrow.fillColor = .gray
+        upArrowIsActive = false
+
+        downArrow.fillColor = .gray
+        downArrowIsActive = false
+    }
     func arrowPressed(nodePlayer: Actor) {
-        var nodePlayer: Actor = nodePlayer
+        nodePlayer.animationActor()
         switch true {
         case upArrowIsActive:
+            buttonAnimations(arrow:"up")
             nodePlayer.moveToUpJoystick()
         case downArrowIsActive:
+            buttonAnimations(arrow:"down")
             nodePlayer.moveToDownJoystick()
         case rightArrowIsActive:
+            buttonAnimations(arrow:"right")
             nodePlayer.moveToRightJoystick()
         case leftArrowIsActive:
+            buttonAnimations(arrow:"left")
             nodePlayer.moveToLeftJoystick()
         default:
             break
         }
     }
+
+    func setSpriteOrientation(arrow: String, nodePlayer: Actor){
+        switch arrow {
+        case "left":
+            nodePlayer.multiplierForDirection = -1.0
+            nodePlayer.node.xScale = abs(nodePlayer.node.xScale) * nodePlayer.multiplierForDirection
+        case "right":
+            nodePlayer.multiplierForDirection = 1.0
+            nodePlayer.node.xScale = abs(nodePlayer.node.xScale) * nodePlayer.multiplierForDirection
+        default:
+            break
+        }
+    }
+
+    func buttonAnimations(arrow: String) {
+        switch arrow {
+        case "left":
+            leftArrow.fillColor = .darkGray
+            circle.alpha = 1
+        case "right":
+            rightArrow.fillColor = .darkGray
+            circle.alpha = 1
+        case "up":
+            upArrow.fillColor = .darkGray
+            circle.alpha = 1
+        case "down":
+            downArrow.fillColor = .darkGray
+            circle.alpha = 1
+        default:
+            break
+        }
+    }
+
+
 
     override init() {
         super.init()
