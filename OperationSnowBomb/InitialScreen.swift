@@ -29,10 +29,19 @@ struct InitialScreen: View {
                 .scaledToFill()
 
             VStack(alignment: .center, spacing: -280) {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                    }, label: {
+                        Image("buttonEnableSound")
+                            .resizable()
+                            .frame(width: 160, height: 160)
+                            .scaledToFit()
+                            .saturation(0.0)
+                    })
+                }
                 VStack {
                     Spacer()
-                    HStack {
-                    }
                 }
                 Image("LogoInitialScreen")
                     .resizable()
@@ -49,12 +58,7 @@ struct InitialScreen: View {
                     }).fullScreenCover(isPresented: $isShowingScene, content: {
                         SpriteView(scene: scene)
                             .ignoresSafeArea()
-
                     })
-                    .transaction({ transaction in
-                        transaction.disablesAnimations = true
-                    })
-
                     Button(action: {
 
                     }, label: {
@@ -64,7 +68,6 @@ struct InitialScreen: View {
                             .scaledToFit()
                             .saturation(0.0)
                     })
-                    .disabled(true)
 
                     Button(action: {
 
@@ -75,7 +78,6 @@ struct InitialScreen: View {
                             .scaledToFit()
                             .saturation(0.0)
                     })
-                    .disabled(true)
                 }
             }
         }
