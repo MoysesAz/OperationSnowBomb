@@ -21,8 +21,9 @@ struct ContentView: View {
         return scene
     }
     var body: some View {
-        SpriteView(scene: scene)
-            .ignoresSafeArea()
+//        SpriteView(scene: scene)
+//            .ignoresSafeArea()
+        InitialScreen()
     }
 }
 

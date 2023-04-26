@@ -31,6 +31,7 @@
 		DD43967829E6F0C400E1DF19 /* Accessories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967729E6F0C400E1DF19 /* Accessories.swift */; };
 		DD4396B529F16DCC00E1DF19 /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4396B429F16DCC00E1DF19 /* Cannon.swift */; };
 		DDBA82FE29F86B4700C3E1C8 /* ArrowsJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBA82FD29F86B4700C3E1C8 /* ArrowsJoystick.swift */; };
+		DDBA830029F9BA9100C3E1C8 /* InitialScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBA82FF29F9BA9100C3E1C8 /* InitialScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,6 +73,7 @@
 		DD43967729E6F0C400E1DF19 /* Accessories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessories.swift; sourceTree = "<group>"; };
 		DD4396B429F16DCC00E1DF19 /* Cannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
 		DDBA82FD29F86B4700C3E1C8 /* ArrowsJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowsJoystick.swift; sourceTree = "<group>"; };
+		DDBA82FF29F9BA9100C3E1C8 /* InitialScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				4ED1B91F29E42ABD005C1511 /* Utils */,
 				95FD15F729D6FE830025DFA8 /* OperationSnowBombApp.swift */,
 				95FD15F929D6FE830025DFA8 /* ContentView.swift */,
+				DDBA82FF29F9BA9100C3E1C8 /* InitialScreen.swift */,
 				DD43967029E581A900E1DF19 /* GameBoard.swift */,
 				95F2040529F8A30C0094A024 /* GameBoard+.swift */,
 				95FD15FB29D6FE840025DFA8 /* Assets.xcassets */,
@@ -309,6 +312,7 @@
 				95FD15F829D6FE830025DFA8 /* OperationSnowBombApp.swift in Sources */,
 				DD43967429E5855700E1DF19 /* Actor.swift in Sources */,
 				4ED1B93529E434EE005C1511 /* ActorStateEnum.swift in Sources */,
+				DDBA830029F9BA9100C3E1C8 /* InitialScreen.swift in Sources */,
 				DD43967129E581A900E1DF19 /* GameBoard.swift in Sources */,
 				95F2040629F8A30C0094A024 /* GameBoard+.swift in Sources */,
 				4ED1B93629E434EE005C1511 /* ActuatorStateEnum.swift in Sources */,
