@@ -12,6 +12,6 @@ protocol ActorMoveProtocol {
     var moveDifference: CGPoint { get set }
     func moveToRight(location: CGPoint)
     func moveToLeft(location: CGPoint)
-    func moveToUp()
-    func moveToDown()
+    func moveToUpJoystick()
+    func moveToDownJoystick()
 }

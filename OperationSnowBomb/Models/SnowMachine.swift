@@ -32,7 +32,6 @@ class SnowMachine: ActuatorProtocol {
     func turnOn() {
         state = ActuatorStateEnum.enabled
         animationActuator()
-    
     }
 
     func turnOff() {
@@ -47,10 +46,8 @@ class SnowMachine: ActuatorProtocol {
                 with: self.disabledTexture,
                 timePerFrame: 0.1
             )
-            
             self.node.run(SKAction.repeatForever(action))
         case ActuatorStateEnum.enabled:
-            
             let enabled = SKAction.animate(
                 with: self.enabledTexture,
                 timePerFrame: 0.1

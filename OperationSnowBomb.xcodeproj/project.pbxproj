@@ -29,6 +29,7 @@
 		DD43967629E6EF4900E1DF19 /* AccesoriesProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */; };
 		DD43967829E6F0C400E1DF19 /* Accessories.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD43967729E6F0C400E1DF19 /* Accessories.swift */; };
 		DD4396B529F16DCC00E1DF19 /* Actuator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD4396B429F16DCC00E1DF19 /* Actuator.swift */; };
+		DDBA82FE29F86B4700C3E1C8 /* ArrowsJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDBA82FD29F86B4700C3E1C8 /* ArrowsJoystick.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +69,7 @@
 		DD43967529E6EF4900E1DF19 /* AccesoriesProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccesoriesProtocol.swift; sourceTree = "<group>"; };
 		DD43967729E6F0C400E1DF19 /* Accessories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Accessories.swift; sourceTree = "<group>"; };
 		DD4396B429F16DCC00E1DF19 /* Actuator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actuator.swift; sourceTree = "<group>"; };
+		DDBA82FD29F86B4700C3E1C8 /* ArrowsJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowsJoystick.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,6 +188,7 @@
 				DD4396B429F16DCC00E1DF19 /* Actuator.swift */,
 				DD43967729E6F0C400E1DF19 /* Accessories.swift */,
 				4EA2DB7E29F7F82700507E67 /* SnowMachine.swift */,
+				DDBA82FD29F86B4700C3E1C8 /* ArrowsJoystick.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				4ED1B93529E434EE005C1511 /* ActorStateEnum.swift in Sources */,
 				DD43967129E581A900E1DF19 /* GameBoard.swift in Sources */,
 				4ED1B93629E434EE005C1511 /* ActuatorStateEnum.swift in Sources */,
+				DDBA82FE29F86B4700C3E1C8 /* ArrowsJoystick.swift in Sources */,
 				4ED1B93729E434EE005C1511 /* ProjectileStateEnum.swift in Sources */,
 				4ED1B94529E44F97005C1511 /* AccesoriesStateEnum.swift in Sources */,
 			);
@@ -435,7 +439,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OperationSnowBomb/Preview Content\"";
-				DEVELOPMENT_TEAM = 35GM6XG62S;
+				DEVELOPMENT_TEAM = 2D837DJ3YC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -449,9 +453,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Academy.OperationSnowBomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 			};
 			name = Debug;
 		};
@@ -463,7 +470,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"OperationSnowBomb/Preview Content\"";
-				DEVELOPMENT_TEAM = 35GM6XG62S;
+				DEVELOPMENT_TEAM = 2D837DJ3YC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -477,9 +484,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = Academy.OperationSnowBomb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 			};
 			name = Release;
 		};
