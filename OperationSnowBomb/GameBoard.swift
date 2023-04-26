@@ -98,23 +98,22 @@ extension GameBoard {
         snowBox.node.position = .init(x: frame.width * 0.90, y: frame.height * 0.129)
         snowBox.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.10,
                                                                     height: frame.width * 0.10))
-
     }
 
     private func setupCannon(withIterator number: Int) {
-        //        let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-        //
-        //        for iterator in 0...number-1 {
-        //            let positionXMulti = 0.188 + 0.207 * Double(iterator)
-        //            let cannon = Actuator(withName: "Cannon\(iterator + 1)",
-        //                                  waitingTexture: SKTextureAtlas(named:"CannonWaiting"),
-        //                                  disabledTexture: SKTextureAtlas(named:"CannonDisabled"),
-        //                                  enabledTexture: SKTextureAtlas(named:"CannonEnabled"),
-        //                                  position: .init(x: frame.width * positionXMulti ,
-        //                                                  y: frame.height * 0.42),
-        //                                                  size: sizeCannons)
-        //            addChild(cannon)
-        //        }
+                let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
+
+                for iterator in 0...number-1 {
+                    let positionXMulti = 0.188 + 0.207 * Double(iterator)
+                    let cannon = Actuator(
+                                          waitingTexture: SKTextureAtlas(named:"CannonWaiting"),
+                                          disabledTexture: SKTextureAtlas(named:"CannonDisabled"),
+                                          enabledTexture: SKTextureAtlas(named:"CannonEnabled"),
+                                          position: .init(x: frame.width * positionXMulti ,
+                                                          y: frame.height * 0.42),
+                                                          size: sizeCannons)
+                    addChild(cannon)
+                }
     }
 
     private func setupGodolfredo() {
@@ -199,6 +198,5 @@ extension GameBoard {
         snowBox.node.physicsBody?.categoryBitMask = categorySnowBox
         player.node.physicsBody?.categoryBitMask = categoryPlayer
         self.player.node.physicsBody?.contactTestBitMask = 0b0010 // sem essa merda nada funciona
-
     }
 }
