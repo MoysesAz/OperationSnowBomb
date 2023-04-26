@@ -1,19 +1,24 @@
 //
-//  SnowMachine.swift
+//  Actuator.swift
 //  OperationSnowBomb
 //
-//  Created by João Victor Ipirajá de Alencar on 25/04/23.
+//  Created by Cicero Nascimento on 20/04/23.
 //
 
+import Foundation
 import SpriteKit
 
-class SnowMachine: ActuatorProtocol {
+class Cannon: ActuatorProtocol {
     var node: SKSpriteNode
     var state: ActuatorStateEnum
 
     var waitingTexture: [SKTexture]
     var disabledTexture: [SKTexture]
     var enabledTexture: [SKTexture]
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     required init(node: SKSpriteNode = SKSpriteNode(),
                   state: ActuatorStateEnum = .disabled,
@@ -30,7 +35,7 @@ class SnowMachine: ActuatorProtocol {
     }
 
     func turnOn() {
-        state = ActuatorStateEnum.waiting
+        state = ActuatorStateEnum.enabled
         animationActuator()
     }
 
@@ -42,22 +47,14 @@ class SnowMachine: ActuatorProtocol {
     public func animationActuator() {
         switch state {
         case ActuatorStateEnum.disabled:
-            let action = SKAction.animate(
-                with: self.disabledTexture,
-                timePerFrame: 0.1
-            )
+            let action = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
             self.node.run(SKAction.repeatForever(action))
-        case ActuatorStateEnum.waiting:
-            let enabled = SKAction.animate(
-                with: self.enabledTexture,
-                timePerFrame: 0.1
-            )
+        case ActuatorStateEnum.enabled:
+            let enabled = SKAction.animate(with: self.enabledTexture, timePerFrame: 0.1)
             let waiting = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
             let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled])
-            self.node.run(action) { [self] in
-                state = .enabled
-            }
-        case .enabled:
+            self.node.run(action)
+        case .waiting:
             print()
         }
     }

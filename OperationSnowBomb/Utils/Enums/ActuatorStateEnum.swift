@@ -9,6 +9,7 @@ import Foundation
 
 enum ActuatorStateEnum: StateProtocol, Equatable {
     case enabled
+    case waiting
     case disabled
 
     static func == (left: ActuatorStateEnum, right: ActuatorStateEnum) -> Bool {
