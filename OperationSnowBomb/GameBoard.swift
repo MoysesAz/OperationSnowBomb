@@ -55,6 +55,12 @@ class GameBoard: SKScene {
         arrowsJoystick.position = .init(x: frame.width * 0.1, y: frame.height * 0.74)
         addChild(arrowsJoystick)
         setup()
+        run(SKAction.repeatForever(
+              SKAction.sequence([
+                SKAction.run(addEnemy),
+                SKAction.wait(forDuration: 1.0)
+                ])
+            ))
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -260,6 +266,37 @@ extension GameBoard {
 //        addChild(arrowsJoystick.circleNode)
 //    }
 
+    func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    }
+
+    func random(minimum: CGFloat, maximum: CGFloat) -> CGFloat {
+        return random() * (maximum - minimum) + minimum
+    }
+
+    func addEnemy() {
+        let actualNameAsset = random(minimum: 1, maximum: 3)
+        let enemy = SKSpriteNode(imageNamed:"Humanos\(Int(actualNameAsset))")
+        enemy.zPosition = -1
+//            .init(x: frame.width * 0.91, y: frame.height * 0.74)
+
+//        let positionXMulti = 0.188 + 0.207 * Double(iterator)
+//        let cannon = Factory().cannon()
+//        cannon.node.position = .init(x: frame.width * positionXMulti, y: frame.height * 0.45)
+        let actualX = random(minimum: frame.width * 0.1,
+                             maximum: frame.width * 0.91)
+        let actualY = random(minimum: self.frame.midY - self.frame.height/2 + enemy.size.height/2,
+                             maximum: self.frame.midY - enemy.size.height/2)
+        addChild(enemy)
+        enemy.position = .init(x: actualX, y: frame.height * 0.9)
+        let actualDuration = random(minimum: CGFloat(70.0), maximum: CGFloat(90.0))
+        let actionMove = SKAction.move(to: CGPoint(x: actualX,
+                                                   y: -enemy.size.width*20),
+                                       duration: TimeInterval(actualDuration))
+        let actionMoveDone = SKAction.removeFromParent()
+        enemy.run(SKAction.sequence([actionMove, actionMoveDone]))
+    }
+
     private func addChilds() {
         addChild(background)
         addChild(iglooWall)
@@ -280,6 +317,7 @@ extension GameBoard {
         addChilds()
         setupCannon(withIterator: 4)
         setupJoystick()
+        addEnemy()
     }
 }
 
