@@ -10,15 +10,34 @@ import SpriteKit
 
 class ArrowsJoystick: SKNode {
 
-//    var upArrow:Bool = false
-//    var downArrow:Bool = false
-//    var rightArrow:Bool = false
-//    var leftArrow:Bool = false
+    var upArrowIsActive:Bool = false
+    var downArrowIsActive:Bool = false
+    var rightArrowIsActive:Bool = false
+    var leftArrowIsActive:Bool = false
+
     var circle:SKShapeNode!
     var upArrow:SKShapeNode!
     var downArrow:SKShapeNode!
     var rightArrow:SKShapeNode!
     var leftArrow:SKShapeNode!
+
+//    let actor: Actor = Actor()
+
+    func arrowPressed(nodePlayer: Actor) {
+        var nodePlayer: Actor = nodePlayer
+        switch true {
+        case upArrowIsActive:
+            nodePlayer.moveToUpJoystick()
+        case downArrowIsActive:
+            nodePlayer.moveToDownJoystick()
+        case rightArrowIsActive:
+            nodePlayer.moveToRightJoystick()
+        case leftArrowIsActive:
+            nodePlayer.moveToLeftJoystick()
+        default:
+            break
+        }
+    }
 
     override init() {
         super.init()

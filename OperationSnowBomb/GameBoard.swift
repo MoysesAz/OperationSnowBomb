@@ -20,7 +20,16 @@ class GameBoard: SKScene {
     let innerCircle = SKShapeNode(circleOfRadius: 25)
     var alphaBegan:CGFloat = 1
     var alphaEnded:CGFloat = 0.8
-//    let impactGenerator = UIImpactFeedbackGenerator(style: .light)
+
+    let actionTVOSButton = UIControl(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    let tapGestureRecognizer = UITapGestureRecognizer(target: GameBoard.self, action: #selector(handleTap))
+    @objc func handleTap(sender: UIControl) {
+        player.moveToLeftJoystick()
+    }
+
+    #if os(iOS)
+    let impactGenerator = UIImpactFeedbackGenerator(style: .light)
+    #endif
 
     internal init(player: Actor,
                   snowBox: Accessories,
@@ -38,10 +47,59 @@ class GameBoard: SKScene {
     }
 
     override func didMove(to view: SKView) {
+
+        actionTVOSButton.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+        view.addSubview(actionTVOSButton)
+
         super.didMove(to: view)
         arrowsJoystick.position = .init(x: frame.width * 0.1, y: frame.height * 0.74)
         addChild(arrowsJoystick)
         setup()
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        let touch = touches.first!
+        let location = touch.location(in: self)
+        let previousLocation = touch.previousLocation(in: self)
+        let delta = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
+
+        let node = self.atPoint(location)
+        if node == actButton || node == innerCircle {
+            actButton.alpha = alphaEnded
+            innerCircle.alpha = alphaEnded
+        }
+
+        print("O DELTA \(delta)")
+        switch node {
+        case self.arrowsJoystick.leftArrow:
+            player.moveEnd()
+            arrowsJoystick.circle.alpha = 0.5
+            arrowsJoystick.leftArrow.fillColor = .gray
+            arrowsJoystick.leftArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: self.player)
+        case self.arrowsJoystick.rightArrow:
+            player.moveEnd()
+            arrowsJoystick.circle.alpha = 0.5
+            arrowsJoystick.rightArrow.fillColor = .gray
+            arrowsJoystick.rightArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: self.player)
+        case self.arrowsJoystick.upArrow:
+            player.moveEnd()
+            arrowsJoystick.circle.alpha = 0.5
+            arrowsJoystick.upArrow.fillColor = .gray
+            arrowsJoystick.upArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: self.player)
+        case self.arrowsJoystick.downArrow:
+            player.moveEnd()
+            arrowsJoystick.circle.alpha = 0.5
+            arrowsJoystick.downArrow.fillColor = .gray
+            arrowsJoystick.downArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: self.player)
+        default:
+            break
+        }
+
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -53,7 +111,9 @@ class GameBoard: SKScene {
         if node == actButton || node == innerCircle {
             actButton.alpha = alphaBegan
             innerCircle.alpha = alphaBegan
-//            impactGenerator.impactOccurred()
+            #if os(iOS)
+            impactGenerator.impactOccurred()
+            #endif
             print("botao funcionando")
         }
 
@@ -61,27 +121,35 @@ class GameBoard: SKScene {
         case arrowsJoystick.leftArrow:
             arrowsJoystick.leftArrow.fillColor = .darkGray
             arrowsJoystick.circle.alpha = 1
-            player.multiplierForDirection = -1.0
             player.animationActor()
-            player.moveToLeftJoystick()
+//            player.moveToLeftJoystick()
+            arrowsJoystick.leftArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
+            player.multiplierForDirection = -1.0
             player.node.xScale = abs(player.node.xScale) * player.multiplierForDirection
         case arrowsJoystick.rightArrow:
             arrowsJoystick.rightArrow.fillColor = .darkGray
             arrowsJoystick.circle.alpha = 1
             player.multiplierForDirection = 1.0
             player.animationActor()
-            player.moveToRightJoystick()
+//            player.moveToRightJoystick()
+            arrowsJoystick.rightArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
             player.node.xScale = abs(player.node.xScale) * player.multiplierForDirection
         case arrowsJoystick.upArrow:
             arrowsJoystick.upArrow.fillColor = .darkGray
             arrowsJoystick.circle.alpha = 1
             player.animationActor()
-            player.moveToUpJoystick()
+//            player.moveToUpJoystick()
+            arrowsJoystick.upArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         case arrowsJoystick.downArrow:
             arrowsJoystick.downArrow.fillColor = .darkGray
             arrowsJoystick.circle.alpha = 1
             player.animationActor()
-            player.moveToDownJoystick()
+//            player.moveToDownJoystick()
+            arrowsJoystick.downArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         default:
             break
         }
@@ -98,17 +166,29 @@ class GameBoard: SKScene {
 
         switch node {
         case arrowsJoystick.leftArrow:
+            player.moveEnd()
             arrowsJoystick.circle.alpha = 0.5
             arrowsJoystick.leftArrow.fillColor = .gray
+            arrowsJoystick.leftArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         case arrowsJoystick.rightArrow:
+            player.moveEnd()
             arrowsJoystick.circle.alpha = 0.5
             arrowsJoystick.rightArrow.fillColor = .gray
+            arrowsJoystick.rightArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         case arrowsJoystick.upArrow:
+            player.moveEnd()
             arrowsJoystick.circle.alpha = 0.5
             arrowsJoystick.upArrow.fillColor = .gray
+            arrowsJoystick.upArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         case arrowsJoystick.downArrow:
+            player.moveEnd()
             arrowsJoystick.circle.alpha = 0.5
             arrowsJoystick.downArrow.fillColor = .gray
+            arrowsJoystick.downArrowIsActive = false
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         default:
             break
         }
@@ -249,9 +329,8 @@ extension GameBoard {
         basicPhysics()
         setupCollisions()
         addChilds()
-        setupCannon(withIterator: 4)
+//        setupCannon(withIterator: 4)
         setupJoystick()
-//        setupArrowsJoystick()
     }
 }
 
