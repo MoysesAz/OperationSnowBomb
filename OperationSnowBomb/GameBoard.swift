@@ -173,7 +173,7 @@ extension GameBoard {
     }
 }
 
-extension GameBoard: SKPhysicsContactDelegate {
+extension GameBoard {
     private func basicPhysics() {
         snowMachine.node.physicsBody?.isDynamic = false
         snowMachine.node.physicsBody?.affectedByGravity = false
@@ -184,7 +184,6 @@ extension GameBoard: SKPhysicsContactDelegate {
         iglooWall.physicsBody?.isDynamic = false
         iglooWall.physicsBody?.affectedByGravity = false
         iglooWall.physicsBody?.pinned = true
-
 
         player.node.physicsBody?.affectedByGravity = false
         player.node.physicsBody?.isDynamic = true
@@ -201,33 +200,5 @@ extension GameBoard: SKPhysicsContactDelegate {
         player.node.physicsBody?.categoryBitMask = categoryPlayer
         self.player.node.physicsBody?.contactTestBitMask = 0b0010 // sem essa merda nada funciona
 
-
-    }
-
-    func didBegin(_ contact: SKPhysicsContact) {
-        let categoryPlayer: UInt32 = 0b0001
-        let categorySnowBox: UInt32 = 0b0010
-        let categorySnowMachine: UInt32 = 0b0011
-        let firstBody = contact.bodyA
-        let secondBody = contact.bodyB
-
-        let playerInSnowBox = (firstBody.categoryBitMask == categoryPlayer && secondBody.categoryBitMask == categorySnowBox) ||
-        (firstBody.categoryBitMask == categorySnowBox && secondBody.categoryBitMask == categoryPlayer)
-
-        let playerInSnowMachine = (firstBody.categoryBitMask == categoryPlayer && secondBody.categoryBitMask == categorySnowMachine) ||
-        (firstBody.categoryBitMask == categorySnowMachine && secondBody.categoryBitMask == categoryPlayer)
-
-        if playerInSnowBox && (player.state == .waiting) {
-            self.player.state = ActorStateEnum.holding(projectile: .rawMaterial)
-            self.player.animationActor()
-        }
-
-        if playerInSnowMachine && (player.state == .holding(projectile: .rawMaterial)) {
-            self.player.state = .waiting
-            self.player.animationActor()
-
-            self.snowMachine.state = .enabled
-            self.snowMachine.turnOn()
-        }
     }
 }

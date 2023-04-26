@@ -30,9 +30,8 @@ class SnowMachine: ActuatorProtocol {
     }
 
     func turnOn() {
-        state = ActuatorStateEnum.enabled
+        state = ActuatorStateEnum.waiting
         animationActuator()
-    
     }
 
     func turnOff() {
@@ -47,19 +46,19 @@ class SnowMachine: ActuatorProtocol {
                 with: self.disabledTexture,
                 timePerFrame: 0.1
             )
-            
             self.node.run(SKAction.repeatForever(action))
-        case ActuatorStateEnum.enabled:
-            
+        case ActuatorStateEnum.waiting:
             let enabled = SKAction.animate(
                 with: self.enabledTexture,
                 timePerFrame: 0.1
             )
             let waiting = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
-            let disabled = SKAction.animate(with: self.disabledTexture, timePerFrame: 0.1)
-            let delay = SKAction.wait(forDuration: 0.7)
-            let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled, delay, disabled])
-            self.node.run(action)
+            let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled])
+            self.node.run(action) { [self] in
+                state = .enabled
+            }
+        case .enabled:
+            print()
         }
     }
 }
