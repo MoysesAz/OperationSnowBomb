@@ -47,7 +47,6 @@ class GameBoard: SKScene {
     }
 
     override func didMove(to view: SKView) {
-
         actionTVOSButton.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
         view.addSubview(actionTVOSButton)
 
@@ -58,7 +57,7 @@ class GameBoard: SKScene {
         run(SKAction.repeatForever(
               SKAction.sequence([
                 SKAction.run(addEnemy),
-                SKAction.wait(forDuration: 1.0)
+                SKAction.wait(forDuration: 8.0)
                 ])
             ))
     }
@@ -276,22 +275,22 @@ extension GameBoard {
 
     func addEnemy() {
         let actualNameAsset = random(minimum: 1, maximum: 3)
-        let enemy = SKSpriteNode(imageNamed:"Humanos\(Int(actualNameAsset))")
+        let enemy = SKSpriteNode(imageNamed:"Humanos\(Int.random(in: 1...3))")
         enemy.zPosition = -1
-//            .init(x: frame.width * 0.91, y: frame.height * 0.74)
-
-//        let positionXMulti = 0.188 + 0.207 * Double(iterator)
-//        let cannon = Factory().cannon()
-//        cannon.node.position = .init(x: frame.width * positionXMulti, y: frame.height * 0.45)
-        let actualX = random(minimum: frame.width * 0.1,
-                             maximum: frame.width * 0.91)
+        let randomPositionX = cannons[Int.random(in: 0..<4)].node.position.x
+        let actualX = randomPositionX
         let actualY = random(minimum: self.frame.midY - self.frame.height/2 + enemy.size.height/2,
                              maximum: self.frame.midY - enemy.size.height/2)
         addChild(enemy)
+        enemy.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.03,
+                                                             height: frame.width * 0.03))
         enemy.position = .init(x: actualX, y: frame.height * 0.9)
+        enemy.physicsBody?.affectedByGravity = false
+        let currentPosition = enemy.position
+        let location = CGPoint(x: actualX, y: -enemy.size.width*20)
+        let diffVector = CGVector(dx: location.x - currentPosition.x, dy: location.y - currentPosition.y)
         let actualDuration = random(minimum: CGFloat(70.0), maximum: CGFloat(90.0))
-        let actionMove = SKAction.move(to: CGPoint(x: actualX,
-                                                   y: -enemy.size.width*20),
+        let actionMove = SKAction.move(by: diffVector,
                                        duration: TimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
         enemy.run(SKAction.sequence([actionMove, actionMoveDone]))
