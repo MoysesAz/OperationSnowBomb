@@ -21,6 +21,7 @@ class Factory {
                               holdingRefinedTexture: holdingRefinedTexture)
         let node = SKSpriteNode(texture: waitingTexture[0])
         godofredo.node = node
+        godofredo.state = .waiting
         return godofredo
     }
 
@@ -79,4 +80,6 @@ class Factory {
 
         return cannon
     }
+
+
 }

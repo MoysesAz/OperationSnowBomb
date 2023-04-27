@@ -20,7 +20,16 @@ class GameBoard: SKScene {
     let innerCircle = SKShapeNode(circleOfRadius: 25)
     var alphaBegan:CGFloat = 1
     var alphaEnded:CGFloat = 0.8
-//    let impactGenerator = UIImpactFeedbackGenerator(style: .light)
+
+    let actionTVOSButton = UIControl(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    let tapGestureRecognizer = UITapGestureRecognizer(target: GameBoard.self, action: #selector(handleTap))
+    @objc func handleTap(sender: UIControl) {
+        player.moveToLeftJoystick()
+    }
+
+    #if os(iOS)
+    let impactGenerator = UIImpactFeedbackGenerator(style: .light)
+    #endif
 
     internal init(player: Actor,
                   snowBox: Accessories,
@@ -38,10 +47,49 @@ class GameBoard: SKScene {
     }
 
     override func didMove(to view: SKView) {
+        actionTVOSButton.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
+        view.addSubview(actionTVOSButton)
+
         super.didMove(to: view)
         arrowsJoystick.position = .init(x: frame.width * 0.1, y: frame.height * 0.74)
         addChild(arrowsJoystick)
         setup()
+        run(SKAction.repeatForever(
+              SKAction.sequence([
+                SKAction.run(addEnemy),
+                SKAction.wait(forDuration: 8.0)
+                ])
+            ))
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
+        let touch = touches.first!
+        let location = touch.location(in: self)
+        let previousLocation = touch.previousLocation(in: self)
+        let delta = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
+
+        let node = self.atPoint(location)
+        if node == actButton || node == innerCircle {
+            actButton.alpha = alphaEnded
+            innerCircle.alpha = alphaEnded
+        }
+
+        let limiteMovement: CGFloat = 4.8
+        if abs(delta.x) >= limiteMovement || abs(delta.y) >= limiteMovement {
+            switch node {
+            case arrowsJoystick.leftArrow:
+                arrowsJoystick.arrowUnpressed(nodePlayer: player)
+            case arrowsJoystick.rightArrow:
+                arrowsJoystick.arrowUnpressed(nodePlayer: player)
+            case arrowsJoystick.upArrow:
+                arrowsJoystick.arrowUnpressed(nodePlayer: player)
+            case arrowsJoystick.downArrow:
+                arrowsJoystick.arrowUnpressed(nodePlayer: player)
+            default:
+                break
+            }
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -53,35 +101,28 @@ class GameBoard: SKScene {
         if node == actButton || node == innerCircle {
             actButton.alpha = alphaBegan
             innerCircle.alpha = alphaBegan
-//            impactGenerator.impactOccurred()
+            #if os(iOS)
+            impactGenerator.impactOccurred()
+            #endif
             print("botao funcionando")
         }
 
         switch node {
         case arrowsJoystick.leftArrow:
-            arrowsJoystick.leftArrow.fillColor = .darkGray
-            arrowsJoystick.circle.alpha = 1
+            arrowsJoystick.leftArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
+            arrowsJoystick.setSpriteOrientation(arrow: "left", nodePlayer: player)
             player.multiplierForDirection = -1.0
-            player.animationActor()
-            player.moveToLeftJoystick()
-            player.node.xScale = abs(player.node.xScale) * player.multiplierForDirection
         case arrowsJoystick.rightArrow:
-            arrowsJoystick.rightArrow.fillColor = .darkGray
-            arrowsJoystick.circle.alpha = 1
-            player.multiplierForDirection = 1.0
-            player.animationActor()
-            player.moveToRightJoystick()
-            player.node.xScale = abs(player.node.xScale) * player.multiplierForDirection
+            arrowsJoystick.rightArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
+            arrowsJoystick.setSpriteOrientation(arrow: "right", nodePlayer: player)
         case arrowsJoystick.upArrow:
-            arrowsJoystick.upArrow.fillColor = .darkGray
-            arrowsJoystick.circle.alpha = 1
-            player.animationActor()
-            player.moveToUpJoystick()
+            arrowsJoystick.upArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         case arrowsJoystick.downArrow:
-            arrowsJoystick.downArrow.fillColor = .darkGray
-            arrowsJoystick.circle.alpha = 1
-            player.animationActor()
-            player.moveToDownJoystick()
+            arrowsJoystick.downArrowIsActive = true
+            arrowsJoystick.arrowPressed(nodePlayer: player)
         default:
             break
         }
@@ -95,20 +136,15 @@ class GameBoard: SKScene {
             actButton.alpha = alphaEnded
             innerCircle.alpha = alphaEnded
         }
-
         switch node {
         case arrowsJoystick.leftArrow:
-            arrowsJoystick.circle.alpha = 0.5
-            arrowsJoystick.leftArrow.fillColor = .gray
+            arrowsJoystick.arrowUnpressed(nodePlayer: player)
         case arrowsJoystick.rightArrow:
-            arrowsJoystick.circle.alpha = 0.5
-            arrowsJoystick.rightArrow.fillColor = .gray
+            arrowsJoystick.arrowUnpressed(nodePlayer: player)
         case arrowsJoystick.upArrow:
-            arrowsJoystick.circle.alpha = 0.5
-            arrowsJoystick.upArrow.fillColor = .gray
+            arrowsJoystick.arrowUnpressed(nodePlayer: player)
         case arrowsJoystick.downArrow:
-            arrowsJoystick.circle.alpha = 0.5
-            arrowsJoystick.downArrow.fillColor = .gray
+            arrowsJoystick.arrowUnpressed(nodePlayer: player)
         default:
             break
         }
@@ -149,19 +185,18 @@ extension GameBoard {
 
     private func setupCannon(withIterator number: Int) {
                 let sizeCannons:CGSize = .init(width: frame.width * 0.15, height: frame.width * 0.15)
-                var categoryCannon: UInt32 = 0b0100
+                var categoryCannon: [UInt32] = [0b0001000, 0b0010000, 0b0100000, 0b1000000]
 
                 for iterator in 0...number-1 {
                     let positionXMulti = 0.188 + 0.207 * Double(iterator)
                     let cannon = Factory().cannon()
-                    cannon.node.position = .init(x: frame.width * positionXMulti, y: frame.height * 0.30)
+                    cannon.node.position = .init(x: frame.width * positionXMulti, y: frame.height * 0.45)
                     cannon.node.size = sizeCannons
                     cannon.node.physicsBody = SKPhysicsBody(rectangleOf: sizeCannons)
                     cannon.node.physicsBody?.isDynamic = false
                     cannon.node.physicsBody?.affectedByGravity = false
-                    cannon.node.physicsBody?.contactTestBitMask = categoryCannon
+                    cannon.node.physicsBody?.categoryBitMask = categoryCannon[iterator]
                     cannons.append(cannon)
-                    categoryCannon += 1
                     addChild(cannon.node)
                 }
     }
@@ -230,13 +265,43 @@ extension GameBoard {
 //        addChild(arrowsJoystick.circleNode)
 //    }
 
+    func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    }
+
+    func random(minimum: CGFloat, maximum: CGFloat) -> CGFloat {
+        return random() * (maximum - minimum) + minimum
+    }
+
+    func addEnemy() {
+        let actualNameAsset = random(minimum: 1, maximum: 3)
+        let enemy = SKSpriteNode(imageNamed:"Humanos\(Int.random(in: 1...3))")
+        enemy.zPosition = -1
+        let randomPositionX = cannons[Int.random(in: 0..<4)].node.position.x
+        let actualX = randomPositionX
+        let actualY = random(minimum: self.frame.midY - self.frame.height/2 + enemy.size.height/2,
+                             maximum: self.frame.midY - enemy.size.height/2)
+        addChild(enemy)
+        enemy.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.03,
+                                                             height: frame.width * 0.03))
+        enemy.position = .init(x: actualX, y: frame.height * 0.9)
+        enemy.physicsBody?.affectedByGravity = false
+        let currentPosition = enemy.position
+        let location = CGPoint(x: actualX, y: -enemy.size.width*20)
+        let diffVector = CGVector(dx: location.x - currentPosition.x, dy: location.y - currentPosition.y)
+        let actualDuration = random(minimum: CGFloat(70.0), maximum: CGFloat(90.0))
+        let actionMove = SKAction.move(by: diffVector,
+                                       duration: TimeInterval(actualDuration))
+        let actionMoveDone = SKAction.removeFromParent()
+        enemy.run(SKAction.sequence([actionMove, actionMoveDone]))
+    }
+
     private func addChilds() {
         addChild(background)
         addChild(iglooWall)
         addChild(player.node)
         addChild(snowBox.node)
         addChild(snowMachine.node)
-
     }
 
     private func setup() {
@@ -251,7 +316,7 @@ extension GameBoard {
         addChilds()
         setupCannon(withIterator: 4)
         setupJoystick()
-//        setupArrowsJoystick()
+        addEnemy()
     }
 }
 
@@ -273,13 +338,22 @@ extension GameBoard {
     }
 
     private func setupCollisions() {
-        let categoryPlayer: UInt32 = 0b0001
-        let categorySnowBox: UInt32 = 0b0010
-        let categorySnowMachine: UInt32 = 0b0011
+        let categoryPlayer: UInt32      = 0b0000001
+        let categorySnowBox: UInt32     = 0b0000010
+        let categorySnowMachine: UInt32 = 0b0000100
+        let categoryCannon0: UInt32     = 0b0001000
+        let categoryCannon1: UInt32     = 0b0010000
+        let categoryCannon2: UInt32     = 0b0100000
+        let categoryCannon3: UInt32     = 0b1000000
+
+
+        // 0b0010
+        // 0b0100
+        // 0b0110
 
         snowMachine.node.physicsBody?.categoryBitMask = categorySnowMachine
         snowBox.node.physicsBody?.categoryBitMask = categorySnowBox
         player.node.physicsBody?.categoryBitMask = categoryPlayer
-        self.player.node.physicsBody?.contactTestBitMask = 0b0010 // sem essa merda nada funciona
+        self.player.node.physicsBody?.contactTestBitMask = categorySnowBox + categorySnowMachine + categoryCannon0 + categoryCannon1 + categoryCannon2 + categoryCannon3 // sem essa merda nada funciona
     }
 }

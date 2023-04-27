@@ -9,13 +9,15 @@ import SpriteKit
 
 extension GameBoard: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-        let categoryPlayer: UInt32 = 0b0001
-        let categorySnowBox: UInt32 = 0b0010
-        let categorySnowMachine: UInt32 = 0b0011
-        let categoryCannon0: UInt32 = 0b0100
-        let categoryCannon1: UInt32 = 0b0101
-        let categoryCannon2: UInt32 = 0b0110
-        let categoryCannon3: UInt32 = 0b0111
+        //        print((contact.bodyA.node! as! SKSpriteNode).texture, "contacted", (contact.bodyB.node! as! SKSpriteNode).texture)
+
+        let categoryPlayer: UInt32      = 0b0000001
+        let categorySnowBox: UInt32     = 0b0000010
+        let categorySnowMachine: UInt32 = 0b0000100
+        let categoryCannon0: UInt32     = 0b0001000
+        let categoryCannon1: UInt32     = 0b0010000
+        let categoryCannon2: UInt32     = 0b0100000
+        let categoryCannon3: UInt32     = 0b1000000
 
         let firstBody = contact.bodyA
         let secondBody = contact.bodyB
@@ -58,29 +60,35 @@ extension GameBoard: SKPhysicsContactDelegate {
             }
         }
 
-        let playerInCannon0 = (firstBody.categoryBitMask == categoryPlayer &&
-                               secondBody.categoryBitMask == categoryCannon0) ||
-        (firstBody.categoryBitMask == categoryCannon0 &&
-         secondBody.categoryBitMask == categoryPlayer)
+        let categoryCannons = [categoryCannon0, categoryCannon1, categoryCannon2, categoryCannon3]
+        var listPlayerInCannons: [Bool] = []
 
-        if playerInCannon0 {
-            if player.state == .holding(projectile: .refinedMaterial) && cannons[0].state == .disabled {
-                cannons[0].turnOn()
-            }
+        for categoryCannon in categoryCannons {
+            let playerInCannon = (firstBody.categoryBitMask == categoryPlayer &&
+                                  secondBody.categoryBitMask == categoryCannon) ||
+            (firstBody.categoryBitMask == categoryCannon &&
+             secondBody.categoryBitMask == categoryPlayer)
+            listPlayerInCannons.append(playerInCannon)
         }
 
-        let playerInCannon1 = (firstBody.categoryBitMask == categoryPlayer &&
-                               secondBody.categoryBitMask == categoryCannon1) ||
-        (firstBody.categoryBitMask == categoryCannon1 &&
-         secondBody.categoryBitMask == categoryPlayer)
+        
+        for index in 0..<listPlayerInCannons.count {
+            if listPlayerInCannons[index] && player.state == .holding(projectile: .refinedMaterial) &&
+                cannons[index].state == .disabled {
+                cannons[index].turnOn()
 
-        if playerInCannon0 {
-            player.state = .waiting
-            player.animationActor()
-            if player.state == .holding(projectile: .refinedMaterial) && cannons[1].state == .disabled {
-                cannons[1].turnOn()
+//                let snowBall = SKShapeNode(circleOfRadius: 20)
+                let snowBall = SKSpriteNode(imageNamed: "SnowBall")
+//                snowBall.fillColor = .blue
+                snowBall.physicsBody = SKPhysicsBody(circleOfRadius: 20)
+                snowBall.position = cannons[index].node.position
+                snowBall.position.y += frame.width * 0.08
+                snowBall.physicsBody?.affectedByGravity = false
+                self.addChild(snowBall)
+                snowBall.run(SKAction.applyForce(.init(dx: 0, dy: 120), duration: 0.1))
+                player.state = .waiting
+                player.animationActor()
             }
         }
-
     }
 }

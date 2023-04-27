@@ -47,13 +47,15 @@ class Cannon: ActuatorProtocol {
     public func animationActuator() {
         switch state {
         case ActuatorStateEnum.disabled:
-            let action = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
+            let action = SKAction.animate(with: self.disabledTexture, timePerFrame: 0.1)
             self.node.run(SKAction.repeatForever(action))
         case ActuatorStateEnum.enabled:
             let enabled = SKAction.animate(with: self.enabledTexture, timePerFrame: 0.1)
             let waiting = SKAction.animate(with: self.waitingTexture, timePerFrame: 0.1)
             let action = SKAction.sequence([SKAction.repeat(waiting, count: 6), enabled])
-            self.node.run(action)
+            self.node.run(action) {
+                self.turnOff()
+            }
         case .waiting:
             print()
         }
