@@ -77,8 +77,9 @@ extension GameBoard: SKPhysicsContactDelegate {
                 cannons[index].state == .disabled {
                 cannons[index].turnOn()
 
-                let snowBall = SKShapeNode(circleOfRadius: 20)
-                snowBall.fillColor = .blue
+//                let snowBall = SKShapeNode(circleOfRadius: 20)
+                let snowBall = SKSpriteNode(imageNamed: "SnowBall")
+//                snowBall.fillColor = .blue
                 snowBall.physicsBody = SKPhysicsBody(circleOfRadius: 20)
                 snowBall.position = cannons[index].node.position
                 snowBall.position.y += frame.width * 0.08
