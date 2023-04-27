@@ -85,7 +85,7 @@ extension GameBoard: SKPhysicsContactDelegate {
                 snowBall.position.y += frame.width * 0.08
                 snowBall.physicsBody?.affectedByGravity = false
                 self.addChild(snowBall)
-                snowBall.run(SKAction.applyForce(.init(dx: 0, dy: 120), duration: 0.1))
+                snowBall.run(SKAction.applyForce(.init(dx: 0, dy: 240), duration: 0.1))
                 player.state = .waiting
                 player.animationActor()
             }

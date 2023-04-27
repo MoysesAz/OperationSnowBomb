@@ -70,10 +70,10 @@ class GameBoard: SKScene {
         let delta = CGPoint(x: location.x - previousLocation.x, y: location.y - previousLocation.y)
 
         let node = self.atPoint(location)
-        if node == actButton || node == innerCircle {
-            actButton.alpha = alphaEnded
-            innerCircle.alpha = alphaEnded
-        }
+//        if node == actButton || node == innerCircle {
+//            actButton.alpha = alphaEnded
+//            innerCircle.alpha = alphaEnded
+//        }
 
         let limiteMovement: CGFloat = 4.8
         if abs(delta.x) >= limiteMovement || abs(delta.y) >= limiteMovement {
@@ -98,14 +98,14 @@ class GameBoard: SKScene {
         let location = touch.location(in: self)
 
         let node = self.atPoint(location)
-        if node == actButton || node == innerCircle {
-            actButton.alpha = alphaBegan
-            innerCircle.alpha = alphaBegan
-            #if os(iOS)
-            impactGenerator.impactOccurred()
-            #endif
-            print("botao funcionando")
-        }
+//        if node == actButton || node == innerCircle {
+//            actButton.alpha = alphaBegan
+//            innerCircle.alpha = alphaBegan
+//            #if os(iOS)
+//            impactGenerator.impactOccurred()
+//            #endif
+//            print("botao funcionando")
+//        }
 
         switch node {
         case arrowsJoystick.leftArrow:
@@ -132,10 +132,10 @@ class GameBoard: SKScene {
         let touch = touches.first!
         let location = touch.location(in: self)
         let node = self.atPoint(location)
-        if node == actButton || node == innerCircle {
-            actButton.alpha = alphaEnded
-            innerCircle.alpha = alphaEnded
-        }
+//        if node == actButton || node == innerCircle {
+//            actButton.alpha = alphaEnded
+//            innerCircle.alpha = alphaEnded
+//        }
         switch node {
         case arrowsJoystick.leftArrow:
             arrowsJoystick.arrowUnpressed(nodePlayer: player)
@@ -217,8 +217,8 @@ extension GameBoard {
 
     private func setupSnowMachine() {
         snowMachine.node.size = .init(width: frame.width * 0.18, height: frame.width * 0.18)
-        snowMachine.node.position = .init(x: frame.width * 0.18, y: frame.height * 0.18)
-        snowMachine.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.18,
+        snowMachine.node.position = .init(x: frame.width * 0.09, y: frame.height * 0.18)
+        snowMachine.node.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.06,
                                                                         height: frame.width * 0.18))
     }
 
@@ -231,8 +231,8 @@ extension GameBoard {
         actButton.strokeColor = UIColor.clear
         actButton.position = .init(x: frame.width * 0.91, y: frame.height * 0.74)
         actButton.alpha = 0.5
-        addChild(actButton)
-        actButton.addChild(innerCircle)
+//        addChild(actButton)
+//        actButton.addChild(innerCircle)
     }
 //    func setupArrowsJoystick() {
 //        arrowsJoystick.circleNode = SKShapeNode(circleOfRadius: 90)
@@ -274,12 +274,12 @@ extension GameBoard {
     }
 
     func addEnemy() {
-        let actualNameAsset = random(minimum: 1, maximum: 3)
+        _ = random(minimum: 1, maximum: 3)
         let enemy = SKSpriteNode(imageNamed:"Humanos\(Int.random(in: 1...3))")
         enemy.zPosition = -1
         let randomPositionX = cannons[Int.random(in: 0..<4)].node.position.x
         let actualX = randomPositionX
-        let actualY = random(minimum: self.frame.midY - self.frame.height/2 + enemy.size.height/2,
+        _ = random(minimum: self.frame.midY - self.frame.height/2 + enemy.size.height/2,
                              maximum: self.frame.midY - enemy.size.height/2)
         addChild(enemy)
         enemy.physicsBody = SKPhysicsBody(rectangleOf: .init(width: frame.width * 0.03,
@@ -289,7 +289,7 @@ extension GameBoard {
         let currentPosition = enemy.position
         let location = CGPoint(x: actualX, y: -enemy.size.width*20)
         let diffVector = CGVector(dx: location.x - currentPosition.x, dy: location.y - currentPosition.y)
-        let actualDuration = random(minimum: CGFloat(70.0), maximum: CGFloat(90.0))
+        let actualDuration = 500
         let actionMove = SKAction.move(by: diffVector,
                                        duration: TimeInterval(actualDuration))
         let actionMoveDone = SKAction.removeFromParent()
