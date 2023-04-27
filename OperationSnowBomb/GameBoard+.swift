@@ -9,7 +9,7 @@ import SpriteKit
 
 extension GameBoard: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
-//        print((contact.bodyA.node! as! SKSpriteNode).texture, "contacted", (contact.bodyB.node! as! SKSpriteNode).texture)
+        //        print((contact.bodyA.node! as! SKSpriteNode).texture, "contacted", (contact.bodyB.node! as! SKSpriteNode).texture)
 
         let categoryPlayer: UInt32      = 0b0000001
         let categorySnowBox: UInt32     = 0b0000010
@@ -60,55 +60,33 @@ extension GameBoard: SKPhysicsContactDelegate {
             }
         }
 
-        // ==========================================================================================
-        let playerInCannon0 = (firstBody.categoryBitMask == categoryPlayer &&
-                               secondBody.categoryBitMask == categoryCannon0) ||
-        (firstBody.categoryBitMask == categoryCannon0 &&
-         secondBody.categoryBitMask == categoryPlayer)
+        let categoryCannons = [categoryCannon0, categoryCannon1, categoryCannon2, categoryCannon3]
+        var listPlayerInCannons: [Bool] = []
 
-        if playerInCannon0 {
-            if player.state == .holding(projectile: .refinedMaterial) && cannons[0].state == .disabled {
-                print("0")
-                cannons[0].turnOn()
-            }
+        for categoryCannon in categoryCannons {
+            let playerInCannon = (firstBody.categoryBitMask == categoryPlayer &&
+                                  secondBody.categoryBitMask == categoryCannon) ||
+            (firstBody.categoryBitMask == categoryCannon &&
+             secondBody.categoryBitMask == categoryPlayer)
+            listPlayerInCannons.append(playerInCannon)
         }
 
-        // ==========================================================================================
-        let playerInCannon1 = (firstBody.categoryBitMask == categoryPlayer &&
-                               secondBody.categoryBitMask == categoryCannon1) ||
-        (firstBody.categoryBitMask == categoryCannon1 &&
-         secondBody.categoryBitMask == categoryPlayer)
+        
+        for index in 0..<listPlayerInCannons.count {
+            if listPlayerInCannons[index] && player.state == .holding(projectile: .refinedMaterial) &&
+                cannons[index].state == .disabled {
+                cannons[index].turnOn()
 
-        if playerInCannon1 {
-            if player.state == .holding(projectile: .refinedMaterial) && cannons[1].state == .disabled {
-                print("1")
-                cannons[1].turnOn()
-            }
-        }
-
-        // ==========================================================================================
-        let playerInCannon2 = (firstBody.categoryBitMask == categoryPlayer &&
-                               secondBody.categoryBitMask == categoryCannon2) ||
-        (firstBody.categoryBitMask == categoryCannon2 &&
-         secondBody.categoryBitMask == categoryPlayer)
-
-        if playerInCannon2 {
-            if player.state == .holding(projectile: .refinedMaterial) && cannons[2].state == .disabled {
-                print("2")
-                cannons[2].turnOn()
-            }
-        }
-
-        // ==========================================================================================
-        let playerInCannon3 = (firstBody.categoryBitMask == categoryPlayer &&
-                               secondBody.categoryBitMask == categoryCannon3) ||
-        (firstBody.categoryBitMask == categoryCannon3 &&
-         secondBody.categoryBitMask == categoryPlayer)
-
-        if playerInCannon3 {
-            if player.state == .holding(projectile: .refinedMaterial) && cannons[3].state == .disabled {
-                print("3")
-                cannons[3].turnOn()
+                let snowBall = SKShapeNode(circleOfRadius: 20)
+                snowBall.fillColor = .blue
+                snowBall.physicsBody = SKPhysicsBody(circleOfRadius: 20)
+                snowBall.position = cannons[index].node.position
+                snowBall.position.y += frame.width * 0.08
+                snowBall.physicsBody?.affectedByGravity = false
+                self.addChild(snowBall)
+                snowBall.run(SKAction.applyForce(.init(dx: 0, dy: 120), duration: 0.1))
+                player.state = .waiting
+                player.animationActor()
             }
         }
     }
